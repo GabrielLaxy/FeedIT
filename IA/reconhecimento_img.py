@@ -22,7 +22,7 @@ def verifica_e_redimensiona(img):
         return img
 
 #inserção de imagens de teste
-source = 'Captura de tela 2024-04-29 195956.png'
+source = 'baixados.png'
 img_original = PIL.Image.open(source)
 img_processada = verifica_e_redimensiona(img_original)
 
