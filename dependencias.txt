@@ -1,2 +1,3 @@
 @react 
 npm install @react-navigation/bottom-tabs
+npm install expo-av
