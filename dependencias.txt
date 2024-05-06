@@ -1,3 +1,7 @@
+rodar o comando abaixo antes de clonar o repositório
+npm i -g expo cli
+git clone (esse rep)
+nos arquivos package.json e package-lock.json tem argumentos que refereciam a pasta onde eu criei o projeto no meu Pc, projeto_integrador, pra facilitar clonem esse rep numa pasta com o mesmo nome ou alterem nos .Jason a referência da pasta
 @react 
 npm install @react-navigation/bottom-tabs
 npm install expo-av
