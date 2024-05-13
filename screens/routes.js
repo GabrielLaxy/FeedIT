@@ -10,7 +10,7 @@ import { AntDesign } from '@expo/vector-icons';
 //<AntDesign name="home" size={24} color="black" />
 import { Feather } from '@expo/vector-icons';
 //Check 
-//<Feather name="check-square" size={24} color="black" />
+{/* <Feather name="check-square" size={24} color="black" /> */}
 //Camera
 //<Feather name="camera" size={24} color="black" />
 import { FontAwesome5 } from '@expo/vector-icons';
