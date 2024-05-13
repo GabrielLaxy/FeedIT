@@ -2,5 +2,9 @@ rodar o comando abaixo antes de clonar o repositório
 npm i -g expo cli
 git clone (esse rep)
 @react 
-npm install @react-navigation/bottom-tabs
-npm install expo-av
+npm install @react-navigation/bottom-tabs@latest
+npm install expo-av@latest
+
+
+comando para atualizar as dependencias 
+npx expo install --fix
