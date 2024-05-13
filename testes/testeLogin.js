@@ -1,9 +1,9 @@
 
 import { render, fireEvent } from '@testing-library/react';
-import Login from './Login';
+import TelaLogin from '../screens/telaLogin';
 
 test('renders login form', () => {
-  const { getByLabelText, getByText } = render(<Login />);
+  const { getByLabelText, getByText } = render(<TelaLogin />);
   const usernameInput = getByLabelText('Username');
   const passwordInput = getByLabelText('Password');
   const loginButton = getByText('Login');
