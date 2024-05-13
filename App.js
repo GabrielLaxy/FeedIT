@@ -3,7 +3,6 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Routes from './screens/routes'
 import BackgroundMusic from './music';
-import RoutesCadastro from './screens/routesCadastro'
 
 export default function App() {
   return (

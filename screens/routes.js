@@ -7,6 +7,7 @@ import { Config, Exercicios, Home, Tasks, Camera } from '../screens';
 import { NavigationContainer} from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MusicBackground from '../music.js';
 
 //import icons
 import { AntDesign } from '@expo/vector-icons';
@@ -17,6 +18,7 @@ import { Feather } from '@expo/vector-icons';
 //Camera
 //<Feather name="camera" size={24} color="black" />
 import { FontAwesome5 } from '@expo/vector-icons';
+import BackgroundMusic from '../music.js';
 //<FontAwesome5 name="running" size={24} color="black" />
 
 const Tab = createBottomTabNavigator();
@@ -166,6 +168,7 @@ function TabGroup() {
 export default function Navigation(){
   return(
       <NavigationContainer>
+          <BackgroundMusic/>
           <StackGroup/>
       </NavigationContainer>
   );
