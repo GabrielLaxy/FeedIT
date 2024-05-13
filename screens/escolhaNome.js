@@ -12,16 +12,16 @@ export default function EscolhaNome({navigation}){
     return(
         <View style={styles.container}>
             <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('cadastro')}>
-                <Image source={require('../imagens/SetaCadastro.png')}></Image>
+                <Image source={require('../assets/SetaCadastro.png')}></Image>
             </TouchableOpacity>
 
-            <Image source={require('../imagens/CircDinoLogin.png')} style={styles.imagem}></Image>
+            <Image source={require('../assets/CircDinoLogin.png')} style={styles.imagem}></Image>
 
             <Text style={styles.titulo}>Escolha o nome do seu IT!</Text>
 
             <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={text=>setNomeBicho(text)}></TextInput>
 
-            <TouchableOpacity style={styles.btnIniciarJogo}>
+            <TouchableOpacity style={styles.btnIniciarJogo}onPress={() => navigation.navigate('TabGroup')}>
                 <Text style={{color:'white', textAlign:'center', fontSize: 20, fontWeight:'bold'}} >INICIAR JOGO</Text>
             </TouchableOpacity>
         </View>

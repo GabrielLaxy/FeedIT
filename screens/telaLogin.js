@@ -1,35 +1,36 @@
 import React from 'react';
 import  { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
 
 
-export default function TelaLogin(){
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+export default function TelaLogin({ navigation }) {
+  return (
+    <View style={styles.container}>  
+      <Text style={styles.titulo}>FeedIt</Text>
 
-    return(
-          <View style={styles.container}>  
-            <Text style={styles.titulo}>FeedIt</Text>
+      <Image source={require('../assets/CircDinoLogin.png')} style={styles.imagem}></Image>
 
-            <Image source={require('../assets/CircDinoLogin.png')} style={styles.imagem}></Image>
+      <Text style={styles.texto}>Email:</Text>
+      <TextInput style={[styles.textInput, { paddingLeft: 15 }]}></TextInput>
 
-            <Text style={styles.texto}>Email:</Text>
-            <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={text=>setEmail(text)}></TextInput>
+      <Text style={styles.texto}>Senha:</Text>
+      <TextInput secureTextEntry={true} style={[styles.textInput, { paddingLeft: 15 }]}></TextInput>
 
-            <Text style={styles.texto}>Senha:</Text>
-            <TextInput secureTextEntry={true} style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={text=>setSenha(text)}></TextInput>
+      <TouchableOpacity style={styles.btnEntrar}>
+        <Text style={{color:'white', textAlign:'center', fontSize: 20, fontWeight:'bold'}}>ENTRAR</Text>
+      </TouchableOpacity>
 
-            <TouchableOpacity style={styles.btnEntrar}>
-                <Text style={{color:'white', textAlign:'center', fontSize: 20, fontWeight:'bold'}}>ENTRAR</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.btnCadastro}>
-                <Text style={{ textAlign:'center', fontSize: 15, fontWeight:'bold'}}>CADASTRAR</Text>
-            </TouchableOpacity>
-          </View>
+      <TouchableOpacity style={styles.btnCadastro} onPress={() => navigation.navigate('cadastro')}>
+        <Text style={{ textAlign:'center', fontSize: 15, fontWeight:'bold'}}>CADASTRAR</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
+
 
 
 const styles = StyleSheet.create({

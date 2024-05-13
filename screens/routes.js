@@ -1,9 +1,12 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import TelaLogin from './telaLogin.js';
+import TelaCadastro from './telaCadastro.js';
+import EscolhaNome from './escolhaNome.js';
 import { Config, Exercicios, Home, Tasks, Camera } from '../screens';
 import { NavigationContainer} from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //import icons
 import { AntDesign } from '@expo/vector-icons';
@@ -17,6 +20,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 //<FontAwesome5 name="running" size={24} color="black" />
 
 const Tab = createBottomTabNavigator();
+
+const Stack = createNativeStackNavigator();
 
 const screenOptions = {
   tabBarShowLabel:false,
@@ -41,12 +46,20 @@ const screenOptions = {
 //color: marrom: #5C4B4B
 //verde: "#8AC600"
 //<Feather name="settings" size={24} color="black" />
-
-function Routes() {
+function StackGroup(){
+  return(
+    <Stack.Navigator>
+        <Stack.Screen name="login" options={{ headerShown: false }} component={TelaLogin} />
+        <Stack.Screen name="cadastro" options={{ headerShown: false }} component={TelaCadastro} />
+        <Stack.Screen name="escolhaNome" options={{ headerShown: false }} component={EscolhaNome} />
+        <Stack.Screen name='TabGroup' options={{ headerShown: false }} component={TabGroup}/>
+    </Stack.Navigator>
+  );
+}
+function TabGroup() {
   return (
-    <NavigationContainer>
       <Tab.Navigator screenOptions={screenOptions} initialRouteName= 'Home'>
-      <Tab.Screen name='Tasks' component={Tasks} options={{
+        <Tab.Screen name='Tasks' component={Tasks} options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
               <View style={{
@@ -147,21 +160,13 @@ function Routes() {
           }
         }}/>
       </Tab.Navigator>
-    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  headerTitle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  titleText: {
-    color: '#8AC600',
-    fontSize: 20,
-    fontWeight: 'bold'
-  }
-});
-
-export default Routes;
+export default function Navigation(){
+  return(
+      <NavigationContainer>
+          <StackGroup/>
+      </NavigationContainer>
+  );
+}

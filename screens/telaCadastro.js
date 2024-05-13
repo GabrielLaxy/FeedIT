@@ -1,29 +1,27 @@
 import React from 'react';
 import  { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity } from 'react-native';
-import SvgUri from '../node_modules/react-native-svg';
 
 
-export default function TelaCadastro(){
+export default function TelaCadastro({ navigation }){
     const [nome, setNome] = useState('');
     const [responsavel, setResponsavel] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const cadastro = ()=>{
-        // Só pra testar!!
-        alert(senha);
-        alert(email);
-        alert(responsavel);
-        alert(nome);
-    }
+    // const cadastro = ()=>{
+    //     alert(senha);
+    //     alert(email);
+    //     alert(responsavel);
+    //     alert(nome);
+    // }
     return(
         <View style={styles.container}>
-            <TouchableOpacity style={styles.btnVoltar}>
+            <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('login')}>
                 <Image source={require('../assets/SetaCadastro.png')}></Image>
             </TouchableOpacity>
             <Text style={styles.titulo}>FeedIt</Text>
-            <Image source={require('../assets/CircDinoCadastro.png')} style={styles.imagem}></Image>
+            <Image source={require('../assets/CircDinoLogin.png')} style={styles.imagem}></Image>
 
             <Text style={styles.texto}>Nome:</Text>
             <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={text=>setNome(text)}></TextInput>
@@ -37,8 +35,8 @@ export default function TelaCadastro(){
             <Text style={styles.texto} >Senha:</Text>
             <TextInput secureTextEntry={true} style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={text=>setSenha(text)}></TextInput>
 
-            <TouchableOpacity style={styles.btnCadastrar}>
-                <Text style={{color:'white', textAlign:'center', fontSize: 20, fontWeight:'bold'}} onPress={() => cadastro()}>CADASTRAR</Text>
+            <TouchableOpacity style={styles.btnCadastrar} onPress={() => navigation.navigate('escolhaNome')}>
+                <Text style={{color:'white', textAlign:'center', fontSize: 20, fontWeight:'bold'}} >CADASTRAR</Text>
             </TouchableOpacity>
         </View>
     );
