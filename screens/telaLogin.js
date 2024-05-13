@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
 
 export default function TelaLogin({ navigation }) {
+
+  const [fontLoaded] = useFonts({
+    Poppins_700Bold,
+  });
+
+  if (!fontLoaded){
+    return null;
+  };
+
   return (
     <View style={styles.container}>  
       <Text style={styles.titulo}>FeedIt</Text>
@@ -33,12 +43,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titulo: {
-    top:20,
+    top:30,
     fontSize: 70,
     color: '#8AC600',
-    fontWeight: 'bold'
+    fontFamily:'Poppins_700Bold',
   },
   imagem: {
+    top:-20,
     height: 300,
     width: 300
   },
@@ -46,7 +57,7 @@ const styles = StyleSheet.create({
     fontSize:14,
     marginRight: '60%',
     color: '#5C4B4B',
-    fontWeight: 'bold',
+    fontFamily:'Poppins_700Bold',
   },
   textInput: {
     backgroundColor: '#BCD8B3',
@@ -77,7 +88,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily:'Poppins_700Bold',
   },
   btnCadastro: {
     marginBottom: 10,
@@ -87,6 +98,6 @@ const styles = StyleSheet.create({
     color: '#5C4B4B', 
     textAlign: 'center',
     fontSize: 15,
-    fontWeight: 'bold',
+    fontFamily:'Poppins_700Bold',
   },
 });

@@ -22,7 +22,7 @@ export default function EscolhaNome({navigation}){
             <TextInput style={styles.textInput} onChangeText={text=>setNomeBicho(text)}></TextInput>
 
             <TouchableOpacity style={styles.btnIniciarJogo}onPress={() => navigation.navigate('TabGroup')}>
-                <Text style={{color:'white', textAlign:'center', fontSize: 20, fontWeight:'bold'}} >INICIAR JOGO</Text>
+                <Text style={styles.textBtnIniciar} >INICIAR JOGO</Text>
             </TouchableOpacity>
         </View>
     
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         top:-70,
         fontSize: 20,
         color: '#5C4B4B',
-        fontWeight: 'bold'
+        fontFamily:'Poppins_700Bold',
     },
     imagem:{
         top:-70,
@@ -76,5 +76,12 @@ const styles = StyleSheet.create({
         shadowColor:'#282828',
         shadowOpacity: 0.25,
         shadowRadius: 5,
+    },
+    textBtnIniciar:{
+        color:'white', 
+        alignItems:'center',
+        textAlign:'center', 
+        fontSize: 20, 
+        fontFamily:'Poppins_700Bold',
     },
 });

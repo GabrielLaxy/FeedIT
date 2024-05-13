@@ -31,7 +31,7 @@ const screenOptions = {
   headerTitleAlign: 'center',
   headerTitle: () => (
     <View>
-      <Text style={{ color: '#8AC600', fontSize: 28, fontWeight: 'bold' }}>FeedIt</Text>
+      <Text style={{ color: '#8AC600', fontSize: 28, fontFamily:'Poppins_700Bold', alignItems:'center',  justifyContent: 'center', marginTop:'3%',}}>FeedIt</Text>
     </View>
   ),
   tabBarStyle:{

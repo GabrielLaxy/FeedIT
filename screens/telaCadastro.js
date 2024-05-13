@@ -52,13 +52,13 @@ const styles = StyleSheet.create({
         textAlign:'left'
     },
     titulo: {
-        top:-5,
+        top:-10,
         fontSize: 60,
         color: '#8AC600',
-        fontWeight: 'bold'
+        fontFamily:'Poppins_700Bold',
     },
     imagem: {
-        top:-20,
+        top:-50,
         height: 200,
         width: 200
     },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
       height: 55,
       width:'80%',
       borderRadius: 40,
-      top:-10,
+      top:-60,
       marginBottom:15,
       elevation: 5,
       shadowColor: '#000',
@@ -77,8 +77,9 @@ const styles = StyleSheet.create({
   
     btnCadastrar: {
       marginTop: 20,
-      marginBottom: 40,
+      marginBottom: 50,
       borderRadius: 40,
+      bottom:60,
       backgroundColor: '#79AE00',
       width: '70%',
       height: 65,
@@ -92,37 +93,27 @@ const styles = StyleSheet.create({
       color: 'white',
       textAlign: 'center',
       fontSize: 18,
-      fontWeight: 'bold',
-    },
-    btnCadastro: {
-      marginBottom: 10,
-    },
-    btnCadastroText: {
-      marginTop:0,
-      color: '#5C4B4B', 
-      textAlign: 'center',
-      fontSize: 15,
-      fontWeight: 'bold',
+      fontFamily:'Poppins_700Bold',
     },
     btnVoltar:{
-        marginTop:40,
+        marginTop:120,
         marginRight: 300,
     },
     text:{
-        top:-10,
+        top:-60,
         marginRight:'60%',
         textAlign:'left',
         color:'#5C4B4B',
         fontSize:14,
-        fontWeight:'bold',
+        fontFamily:'Poppins_700Bold',
     },
     textResponsavel:{
-        top:-10,
-        marginRight:'50%',
+        top:-60,
+        marginRight:'47%',
         textAlign:'left',
         color:'#5C4B4B',
         fontSize:15,
-        fontWeight:'bold',
+        fontFamily:'Poppins_700Bold',
     }
   });
   
