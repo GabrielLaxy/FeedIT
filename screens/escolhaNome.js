@@ -19,7 +19,7 @@ export default function EscolhaNome({navigation}){
 
             <Text style={styles.titulo}>Escolha o nome do seu IT!</Text>
 
-            <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={text=>setNomeBicho(text)}></TextInput>
+            <TextInput style={styles.textInput} onChangeText={text=>setNomeBicho(text)}></TextInput>
 
             <TouchableOpacity style={styles.btnIniciarJogo}onPress={() => navigation.navigate('TabGroup')}>
                 <Text style={{color:'white', textAlign:'center', fontSize: 20, fontWeight:'bold'}} >INICIAR JOGO</Text>
@@ -32,7 +32,7 @@ export default function EscolhaNome({navigation}){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#f5f5f5',
+      backgroundColor: '#FCFFF5',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -40,26 +40,41 @@ const styles = StyleSheet.create({
         marginRight: 300,
         marginBottom: 85,
     },
-    titulo:{
-        fontSize:20,
-        marginBottom: 20,
+    titulo: {
+        top:-70,
+        fontSize: 20,
+        color: '#5C4B4B',
+        fontWeight: 'bold'
     },
     imagem:{
-        height:300,
+        top:-70,
+        height:350,
+        width:350,
     },
-    textInput:{
+    textInput: {
+        top:-60,
         backgroundColor: '#BCD8B3',
+        height: 55,
         width:'80%',
-        borderRadius: 20,
-        marginBottom:16,
-        height: 50,
-    },
+        borderRadius: 40,
+        marginBottom:15,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+      },
     btnIniciarJogo:{
-        marginTop:100,
-        borderRadius:25,
-        backgroundColor:'#79AE00',
-        width:'60%',
-        height: 50,
-        justifyContent:'center',
+        top:-60,
+        marginTop: 20,
+        marginBottom: 40,
+        borderRadius: 40,
+        backgroundColor: '#79AE00',
+        width: '70%',
+        height: 65,
+        justifyContent: 'center',
+        elevation:5,
+        shadowColor:'#282828',
+        shadowOpacity: 0.25,
+        shadowRadius: 5,
     },
 });
