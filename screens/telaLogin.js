@@ -12,7 +12,7 @@ export default function TelaLogin({ navigation }) {
     <View style={styles.container}>  
       <Text style={styles.titulo}>FeedIt</Text>
 
-      <Image source={require('../assets/CircDinoLogin.png')} style={styles.imagem}></Image>
+      <Image source={require('../assets/circDino.png')} style={styles.imagem}></Image>
 
       <Text style={styles.texto}>Email:</Text>
       <TextInput style={[styles.textInput, { paddingLeft: 15 }]}></TextInput>
@@ -31,8 +31,6 @@ export default function TelaLogin({ navigation }) {
   );
 }
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -43,9 +41,11 @@ const styles = StyleSheet.create({
   titulo:{
     fontSize:60,
     color: '#8AC600',
+    fontWeight: 'bold'
   },
   imagem:{
-    height:300,
+    height: 300,
+    width:300
   },
   texto:{
     marginRight:'60%',
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   textInput:{
     backgroundColor: '#BCD8B3',
     width:'80%',
-    borderRadius: 20,
+    borderRadius: 30,
     marginBottom:16,
     height: 50,
 },

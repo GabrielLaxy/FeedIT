@@ -21,7 +21,7 @@ export default function TelaCadastro({ navigation }){
                 <Image source={require('../assets/SetaCadastro.png')}></Image>
             </TouchableOpacity>
             <Text style={styles.titulo}>FeedIt</Text>
-            <Image source={require('../assets/CircDinoLogin.png')} style={styles.imagem}></Image>
+            <Image source={require('../assets/circDino.png')} style={styles.imagem}></Image>
 
             <Text style={styles.texto}>Nome:</Text>
             <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={text=>setNome(text)}></TextInput>

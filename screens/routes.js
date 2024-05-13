@@ -168,7 +168,8 @@ function TabGroup() {
 export default function Navigation(){
   return(
       <NavigationContainer>
-          <BackgroundMusic/>
+          
+          {/* <BackgroundMusic/> */}
           <StackGroup/>
       </NavigationContainer>
   );

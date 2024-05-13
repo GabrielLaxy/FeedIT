@@ -15,7 +15,7 @@ export default function EscolhaNome({navigation}){
                 <Image source={require('../assets/SetaCadastro.png')}></Image>
             </TouchableOpacity>
 
-            <Image source={require('../assets/CircDinoLogin.png')} style={styles.imagem}></Image>
+            <Image source={require('../assets/circDino.png')} style={styles.imagem}></Image>
 
             <Text style={styles.titulo}>Escolha o nome do seu IT!</Text>
 
