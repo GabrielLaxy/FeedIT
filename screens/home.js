@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, ImageBackground, StyleSheet, Dimensions, Animated, TouchableOpacity } from 'react-native';
+import { View, Text, Image, ImageBackground, StyleSheet, Dimensions, Animated, TouchableOpacity, Easing } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; // Importe o ícone que você deseja usar
 
 const windowWidth = Dimensions.get('window').width;
@@ -17,7 +17,8 @@ export default function Home() {
         const toValue = panelOpen ? -windowHeight : 0;
         Animated.timing(panelYPosition, {
             toValue: toValue,
-            duration: 500,
+            duration: 600,
+            easing: Easing.sin,
             useNativeDriver: false
         }).start();
         setPanelOpen(!panelOpen);
@@ -29,7 +30,7 @@ export default function Home() {
         position: 'absolute',
         top: 0,
         width: '100%',
-        height: windowHeight / 3,
+        height: windowHeight / 3.5,
         borderBottomLeftRadius: 40,
         borderBottomRightRadius: 40,
     };

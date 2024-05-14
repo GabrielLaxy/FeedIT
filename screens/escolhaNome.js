@@ -31,28 +31,28 @@ export default function EscolhaNome({navigation}){
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#FCFFF5',
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#FCFFF5',
+        alignItems: 'center',
+
     },
     btnVoltar:{
-        marginRight: 300,
-        marginBottom: 85,
+        marginTop:'15%',
+        marginRight: '80%',
     },
     titulo: {
-        top:-70,
+        // top:-70,
         fontSize: 20,
         color: '#5C4B4B',
         fontFamily:'Poppins_700Bold',
     },
     imagem:{
-        top:-70,
+        // top:-70,
         height:350,
         width:350,
     },
     textInput: {
-        top:-60,
+        // top:-60,
         backgroundColor: '#BCD8B3',
         height: 55,
         width:'80%',
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
       },
     btnIniciarJogo:{
-        top:-60,
+        // top:-60,
         marginTop: 20,
         marginBottom: 40,
         borderRadius: 40,

@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
       fontFamily:'Poppins_700Bold',
     },
     btnVoltar:{
-        marginTop:120,
-        marginRight: 300,
+        marginTop:'30%',
+        marginRight: '80%',
     },
     text:{
         top:-60,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     },
     textResponsavel:{
         top:-60,
-        marginRight:'47%',
+        marginLeft:'-55%',
         textAlign:'left',
         color:'#5C4B4B',
         fontSize:15,
