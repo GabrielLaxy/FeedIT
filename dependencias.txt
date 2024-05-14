@@ -1,13 +1,11 @@
-rodar o comando abaixo antes de clonar o repositório
 npm install expo@latest
 npm install expo-updates@latest
-git clone (esse rep)
-@react 
 npm install @react-navigation/native@latest
 npm install @react-navigation/native-stack@latest
 npm install @react-navigation/bottom-tabs@latest
 npm install expo-av@latest
 npx expo install expo-font
+npx expo install expo-font @expo-google-fonts/poppins
 
 comando para atualizar as dependencias 
 npx expo install --fix
