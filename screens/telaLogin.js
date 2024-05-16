@@ -39,32 +39,35 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FCFFF5',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   titulo: {
-    top:30,
+    marginTop: '10%',
     fontSize: 70,
     color: '#8AC600',
     fontFamily:'Poppins_700Bold',
   },
   imagem: {
-    top:-20,
+    marginTop:'-15%',
     height: 300,
     width: 300
   },
   texto: {
+    bottom: '-1%',
+    marginLeft:'15%',
+    alignSelf:'flex-start',
     fontSize:14,
-    marginRight: '60%',
     color: '#5C4B4B',
     fontFamily:'Poppins_700Bold',
   },
   textInput: {
+    marginBottom: '10%',
     backgroundColor: '#BCD8B3',
     height: 65,
     width:'80%',
     borderRadius: 40,
-    marginBottom: 16,
     elevation: 5,
     shadowColor: '#000',
     shadowOpacity: 0.5,
@@ -72,8 +75,7 @@ const styles = StyleSheet.create({
   },
 
   btnEntrar: {
-    marginTop: 20,
-    marginBottom: 10,
+    marginBottom:'-2%',
     borderRadius: 40,
     backgroundColor: '#79AE00',
     width: '70%',
@@ -91,10 +93,9 @@ const styles = StyleSheet.create({
     fontFamily:'Poppins_700Bold',
   },
   btnCadastro: {
-    marginBottom: 10,
+    marginBottom: '10%',
   },
   btnCadastroText: {
-    marginTop:0,
     color: '#5C4B4B', 
     textAlign: 'center',
     fontSize: 15,

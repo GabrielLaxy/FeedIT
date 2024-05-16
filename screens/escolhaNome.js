@@ -33,40 +33,37 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FCFFF5',
+        flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'space-between',
 
     },
     btnVoltar:{
-        marginTop:'15%',
-        marginRight: '80%',
+        marginTop:'12%',
+        marginLeft:'-78%',
     },
     titulo: {
-        // top:-70,
         fontSize: 20,
         color: '#5C4B4B',
         fontFamily:'Poppins_700Bold',
     },
     imagem:{
-        // top:-70,
-        height:350,
-        width:350,
+
+        height:400,
+        width:400,
     },
     textInput: {
-        // top:-60,
         backgroundColor: '#BCD8B3',
         height: 55,
         width:'80%',
         borderRadius: 40,
-        marginBottom:15,
         elevation: 5,
         shadowColor: '#000',
         shadowOpacity: 0.5,
         shadowRadius: 5,
       },
     btnIniciarJogo:{
-        // top:-60,
-        marginTop: 20,
-        marginBottom: 40,
+        marginBottom: '40%',
         borderRadius: 40,
         backgroundColor: '#79AE00',
         width: '70%',

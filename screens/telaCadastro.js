@@ -23,10 +23,10 @@ export default function TelaCadastro({ navigation }){
             <Text style={styles.titulo}>FeedIt</Text>
             <Image source={require('../assets/circDino.png')} style={styles.imagem}></Image>
 
-            <Text style={[styles.text,{textAlign:'left'}]}>Nome:</Text>
+            <Text style={[styles.text]}>Nome:</Text>
             <TextInput style={styles.textInput} onChangeText={text=>setNome(text)}></TextInput>
 
-            <Text style={styles.textResponsavel}>Responsável:</Text>
+            <Text style={styles.text}>Responsável:</Text>
             <TextInput style={styles.textInput} onChangeText={text=>setResponsavel(text)}></TextInput>
 
             <Text style={styles.text}>E-mail:</Text>
@@ -47,114 +47,60 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FCFFF5',
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        textAlign:'left'
+        justifyContent: 'space-between',
+    },
+    btnVoltar:{
+        marginTop:'12%',
+        marginLeft:'-78%',
     },
     titulo: {
-        top:-10,
+        marginTop: '-5%',
         fontSize: 60,
         color: '#8AC600',
         fontFamily:'Poppins_700Bold',
     },
     imagem: {
-        top:-50,
+        marginTop: '-12%',
         height: 200,
         width: 200
     },
     textInput: {
-      backgroundColor: '#BCD8B3',
-      height: 55,
-      width:'80%',
-      borderRadius: 40,
-      top:-60,
-      marginBottom:15,
-      elevation: 5,
-      shadowColor: '#000',
-      shadowOpacity: 0.5,
-      shadowRadius: 5,
-    },
-  
-    btnCadastrar: {
-      marginTop: 20,
-      marginBottom: 50,
-      borderRadius: 40,
-      bottom:60,
-      backgroundColor: '#79AE00',
-      width: '70%',
-      height: 65,
-      justifyContent: 'center',
-      elevation:5,
-      shadowColor:'#282828',
-      shadowOpacity: 0.25,
-      shadowRadius: 5,
-    },
-    btnCadastrarText: {
-      color: 'white',
-      textAlign: 'center',
-      fontSize: 18,
-      fontFamily:'Poppins_700Bold',
-    },
-    btnVoltar:{
-        marginTop:'30%',
-        marginRight: '80%',
+        bottom: '3%',
+        height: 55,
+        width:'80%',
+        backgroundColor: '#BCD8B3',
+        borderRadius: 40,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
     },
     text:{
-        top:-60,
-        marginRight:'60%',
-        textAlign:'left',
+        bottom:'1.5%',
+        marginLeft:'15%',
+        alignSelf:'flex-start',
         color:'#5C4B4B',
         fontSize:14,
         fontFamily:'Poppins_700Bold',
     },
-    textResponsavel:{
-        top:-60,
-        marginLeft:'-55%',
-        textAlign:'left',
-        color:'#5C4B4B',
-        fontSize:15,
+    btnCadastrar: {
+        marginBottom:'10%',
+        borderRadius: 40,
+        backgroundColor: '#79AE00',
+        width: '70%',
+        height: 65,
+        justifyContent: 'center',
+        elevation:5,
+        shadowColor:'#282828',
+        shadowOpacity: 0.25,
+        shadowRadius: 5,
+    },
+    btnCadastrarText: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 18,
         fontFamily:'Poppins_700Bold',
-    }
+    },
   });
-  
-// const styles = StyleSheet.create({
-//     container: {
-//       flex: 1,
-//       backgroundColor: '#f5f5f5',
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//     },
-//     btnVoltar:{
-//         marginTop:40,
-//         marginRight: 300,
-//     },
-//     titulo:{
-//         fontSize:60,
-//         color: '#8AC600',
-//     },
-//     imagem:{
-//         flex:1,
-//         backgroundColor: '#f5f5f5'
-//     },
-//     texto:{
-//         marginRight:'60%',
-//     },
-//     texto2:{
-//         marginRight:'50%',
-//     },
-//     textInput:{
-//         backgroundColor: '#BCD8B3',
-//         width:'80%',
-//         borderRadius: 20,
-//         marginBottom:16,
-//         height: 50,
-//     },
-//     btnCadastrar:{
-//         marginBottom:30,
-//         borderRadius:25,
-//         backgroundColor:'#79AE00',
-//         width:'60%',
-//         height: 50,
-//         justifyContent:'center',
-//     },
-// });
