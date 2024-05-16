@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
       },
     btnIniciarJogo:{
-        marginBottom: '40%',
+        marginBottom: '30%',
         borderRadius: 40,
         backgroundColor: '#79AE00',
         width: '70%',
