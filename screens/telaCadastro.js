@@ -6,6 +6,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 export default function TelaCadastro({ navigation }){
+
+    const schema = yup.object({
+        nome: yup.string().required("Informe seu nome"),
+        responsavel: yup.string().required("Informe seu responsável"),
+        email: yup.string().email("Email inválido").required("Informe seu e-mail"),
+        senha: yup.string().min(7, "Deve conter 6 letras e um número no mínimo").required("Informe sua senha")
+    });
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
