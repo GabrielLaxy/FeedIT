@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, ImageBackground, leSheetSty, Dimensions, Animated, TouchableOpacity, Easing } from 'react-native';
+import { View, Text, Image, ImageBackground, StyleSheet, Dimensions, Animated, TouchableOpacity, Easing } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get('window').width;
