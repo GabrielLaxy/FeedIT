@@ -1,42 +1,91 @@
 import React from 'react';
 import  { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity } from 'react-native';
-
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 export default function TelaCadastro({ navigation }){
-    const [nome, setNome] = useState('');
-    const [responsavel, setResponsavel] = useState('');
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
 
-    // const cadastro = ()=>{
-    //     alert(senha);
-    //     alert(email);
-    //     alert(responsavel);
-    //     alert(nome);
-    // }
-    return(
+    const schema = yup.object({
+        nome: yup.string().required("Informe seu nome"),
+        responsavel: yup.string().required("Informe seu responsável"),
+        email: yup.string().email("Email inválido").required("Informe seu e-mail"),
+        senha: yup.string().min(7, "Deve conter 6 letras e um número no mínimo").required("Informe sua senha")
+    });
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
+    function verificaCadastro(data) {
+        navigation.navigate('escolhaNome');
+    }
+
+    return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('login')}>
-                <Image source={require('../assets/SetaCadastro.png')}></Image>
+                <Image source={require('../assets/SetaCadastro.png')} />
             </TouchableOpacity>
             <Text style={styles.titulo}>FeedIt</Text>
-            <Image source={require('../assets/circDino.png')} style={styles.imagem}></Image>
+            <Image source={require('../assets/circDino.png')} style={styles.imagem} />
 
-            <Text style={[styles.text]}>Nome:</Text>
-            <TextInput style={styles.textInput} onChangeText={text=>setNome(text)}></TextInput>
+            <View style={styles.containerLogin}>
+                <Text style={[styles.text]}>Nome:</Text>
+                <Controller
+                    control={control}
+                    name='nome'
+                    render={({ field: { onChange, value } }) => (
+                        <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} />
+                    )}
+                />
+                <View style={styles.erro}>
+                {errors.nome && <Text style={styles.erroMensagem}>{errors.nome?.message}</Text>}
+                </View>
+            </View>
 
-            <Text style={styles.text}>Responsável:</Text>
-            <TextInput style={styles.textInput} onChangeText={text=>setResponsavel(text)}></TextInput>
+            <View style={styles.containerLogin}>
+                <Text style={styles.text}>Responsável:</Text>
+                <Controller
+                    control={control}
+                    name='responsavel'
+                    render={({ field: { onChange, value } }) => (
+                        <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} />
+                    )}
+                />
+                <View style={styles.erro}>
+                {errors.responsavel && <Text style={styles.erroMensagem}>{errors.responsavel?.message}</Text>}
+                </View>
+            </View> 
 
+            <View style={styles.containerLogin}>
             <Text style={styles.text}>E-mail:</Text>
-            <TextInput style={styles.textInput} onChangeText={text=>setEmail(text)}></TextInput>
+            <Controller
+                control={control}
+                name='email'
+                render={({ field: { onChange, value } }) => (
+                    <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} />
+                )}
+            />
+            <View style={styles.erro}>
+            {errors.email && <Text style={styles.erroMensagem}>{errors.email?.message}</Text>}
+            </View>
+            </View>
 
-            <Text style={styles.text} >Senha:</Text>
-            <TextInput secureTextEntry={true} style={styles.textInput} onChangeText={text=>setSenha(text)}></TextInput>
-
-            <TouchableOpacity style={styles.btnCadastrar} onPress={() => navigation.navigate('escolhaNome')}>
-                <Text style={styles.btnCadastrarText} >CADASTRAR</Text>
+            <View style={styles.containerLogin}>
+                <Text style={styles.text}>Senha:</Text>
+                <Controller
+                    control={control}
+                    name='senha'
+                    render={({ field: { onChange, value } }) => (
+                        <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} secureTextEntry={true} />
+                    )}
+                />
+                <View style={styles.erro}>
+                {errors.senha && <Text style={styles.erroMensagem}>{errors.senha?.message}</Text>}
+                </View>
+            </View>
+            <TouchableOpacity style={styles.btnCadastrar} onPress={handleSubmit(verificaCadastro)}>
+                <Text style={styles.btnCadastrarText}>CADASTRAR</Text>
             </TouchableOpacity>
         </View>
     );
@@ -51,9 +100,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
-    btnVoltar:{
-        marginTop:'12%',
-        marginLeft:'-78%',
+    containerLogin:{
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      },
+    erro:{
+        height: 20,
+      },
+    btnVoltar: {
+        marginTop: '12%',
+        marginLeft: '-78%',
+
     },
     titulo: {
         marginTop: '-5%',
@@ -63,7 +121,7 @@ const styles = StyleSheet.create({
     },
     imagem: {
         marginTop: '-12%',
-        height: 200,
+        height: 180,
         width: 200
     },
     textInput: {
@@ -77,23 +135,31 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 5,
     },
-    text:{
-        bottom:'1.5%',
-        marginLeft:'15%',
-        alignSelf:'flex-start',
-        color:'#5C4B4B',
-        fontSize:14,
-        fontFamily:'Poppins_700Bold',
+    btnCadastrar:{
+        marginBottom:30,
+        borderRadius:25,
+        backgroundColor:'#79AE00',
+        width:'60%',
+        height: 50,
+        justifyContent:'center',
+    },
+    text: {
+        bottom: '1.5%',
+        marginLeft: '15%',
+        alignSelf: 'flex-start',
+        color: '#5C4B4B',
+        fontSize: 14,
+        fontFamily: 'Poppins_700Bold',
     },
     btnCadastrar: {
-        marginBottom:'10%',
+        marginBottom: '10%',
         borderRadius: 40,
         backgroundColor: '#79AE00',
         width: '70%',
         height: 65,
         justifyContent: 'center',
-        elevation:5,
-        shadowColor:'#282828',
+        elevation: 5,
+        shadowColor: '#282828',
         shadowOpacity: 0.25,
         shadowRadius: 5,
     },
@@ -101,6 +167,11 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 18,
-        fontFamily:'Poppins_700Bold',
+        fontFamily: 'Poppins_700Bold',
+    },
+    erroMensagem: {
+        textAlign:'center',
+        color: 'red',
+        height: 20,
     },
   });
