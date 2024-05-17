@@ -6,39 +6,79 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 export default function TelaCadastro({ navigation }){
-    const [nome, setNome] = useState('');
-    const [responsavel, setResponsavel] = useState('');
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
 
-    // const cadastro = ()=>{
-    //     alert(senha);
-    //     alert(email);
-    //     alert(responsavel);
-    //     alert(nome);
-    // }
-    return(
+    function verificaCadastro(data) {
+        navigation.navigate('escolhaNome');
+    }
+
+    return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('login')}>
-                <Image source={require('../assets/SetaCadastro.png')}></Image>
+                <Image source={require('../assets/SetaCadastro.png')} />
             </TouchableOpacity>
             <Text style={styles.titulo}>FeedIt</Text>
-            <Image source={require('../assets/circDino.png')} style={styles.imagem}></Image>
+            <Image source={require('../assets/circDino.png')} style={styles.imagem} />
 
-            <Text style={[styles.text]}>Nome:</Text>
-            <TextInput style={styles.textInput} onChangeText={text=>setNome(text)}></TextInput>
+            <View style={styles.containerLogin}>
+                <Text style={[styles.text]}>Nome:</Text>
+                <Controller
+                    control={control}
+                    name='nome'
+                    render={({ field: { onChange, value } }) => (
+                        <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} />
+                    )}
+                />
+                <View style={styles.erro}>
+                {errors.nome && <Text style={styles.erroMensagem}>{errors.nome?.message}</Text>}
+                </View>
+            </View>
 
-            <Text style={styles.text}>Responsável:</Text>
-            <TextInput style={styles.textInput} onChangeText={text=>setResponsavel(text)}></TextInput>
+            <View style={styles.containerLogin}>
+                <Text style={styles.text}>Responsável:</Text>
+                <Controller
+                    control={control}
+                    name='responsavel'
+                    render={({ field: { onChange, value } }) => (
+                        <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} />
+                    )}
+                />
+                <View style={styles.erro}>
+                {errors.responsavel && <Text style={styles.erroMensagem}>{errors.responsavel?.message}</Text>}
+                </View>
+            </View> 
 
+            <View style={styles.containerLogin}>
             <Text style={styles.text}>E-mail:</Text>
-            <TextInput style={styles.textInput} onChangeText={text=>setEmail(text)}></TextInput>
+            <Controller
+                control={control}
+                name='email'
+                render={({ field: { onChange, value } }) => (
+                    <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} />
+                )}
+            />
+            <View style={styles.erro}>
+            {errors.email && <Text style={styles.erroMensagem}>{errors.email?.message}</Text>}
+            </View>
+            </View>
 
-            <Text style={styles.text} >Senha:</Text>
-            <TextInput secureTextEntry={true} style={styles.textInput} onChangeText={text=>setSenha(text)}></TextInput>
-
-            <TouchableOpacity style={styles.btnCadastrar} onPress={() => navigation.navigate('escolhaNome')}>
-                <Text style={styles.btnCadastrarText} >CADASTRAR</Text>
+            <View style={styles.containerLogin}>
+                <Text style={styles.text}>Senha:</Text>
+                <Controller
+                    control={control}
+                    name='senha'
+                    render={({ field: { onChange, value } }) => (
+                        <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} secureTextEntry={true} />
+                    )}
+                />
+                <View style={styles.erro}>
+                {errors.senha && <Text style={styles.erroMensagem}>{errors.senha?.message}</Text>}
+                </View>
+            </View>
+            <TouchableOpacity style={styles.btnCadastrar} onPress={handleSubmit(verificaCadastro)}>
+                <Text style={styles.btnCadastrarText}>CADASTRAR</Text>
             </TouchableOpacity>
         </View>
     );
