@@ -94,11 +94,10 @@ export default function TelaCadastro({ navigation }){
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#FCFFF5',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+      flex: 1,
+      backgroundColor: '#f5f5f5',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     containerLogin:{
         marginTop:0,
@@ -112,32 +111,35 @@ const styles = StyleSheet.create({
     btnVoltar: {
         marginTop: '12%',
         marginLeft: '-78%',
+
     },
-    btnVoltar:{
-        marginTop:'12%',
-        marginLeft:'-78%',
-    },
-    titulo: {
-        marginTop: '-5%',
-        fontSize: 60,
+    titulo:{
+        fontSize:60,
         color: '#8AC600',
-        fontFamily:'Poppins_700Bold',
+
     },
     imagem: {
         marginTop: '-12%',
-        height: 200,
+        height: 180,
         width: 200
     },
     textInput: {
         bottom: '3%',
         height: 55,
-        width:'80%',
+        width: '80%',
         backgroundColor: '#BCD8B3',
-        borderRadius: 40,
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
+        width:'80%',
+        borderRadius: 20,
+        marginBottom:16,
+        height: 50,
+    },
+    btnCadastrar:{
+        marginBottom:30,
+        borderRadius:25,
+        backgroundColor:'#79AE00',
+        width:'60%',
+        height: 50,
+        justifyContent:'center',
     },
     text: {
         bottom: '1.5%',
