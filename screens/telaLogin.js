@@ -1,39 +1,82 @@
-import React, { useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
+import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 export default function TelaLogin({ navigation }) {
+    // Carga das fontes deve ser feita antes de qualquer renderização condicional
+    const [fontsLoaded] = useFonts({
+        Poppins_700Bold,
+    });
 
-  const [fontLoaded] = useFonts({
-    Poppins_700Bold,
-  });
+    // Definindo o esquema de validação
+    const schema = yup.object({
+        email: yup.string().email("Email inválido").required("Informe seu e-mail"),
+        senha: yup.string().min(7, "Deve conter 6 letras e um número no mínimo").required("Informe sua senha"),
+    });
 
-  if (!fontLoaded){
-    return null;
-  };
+    // Inicializando useForm hook
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    });
 
-  return (
-    <View style={styles.container}>  
-      <Text style={styles.titulo}>FeedIt</Text>
+    // Função para verificação de login
+    function verificaLogin(data) {
+        navigation.navigate('cadastro');
+    }
 
-      <Image source={require('../assets/circDino.png')} style={styles.imagem} />
+    // Verificação de fontes carregadas deve ser a última parte antes do retorno JSX
+    if (!fontsLoaded) {
+        return null; // Pode retornar um spinner ou outro indicador de carregamento
+    }
 
-      <Text style={styles.texto}>Email:</Text>
-      <TextInput style={[styles.textInput]} />
+    return (
+        <View style={styles.container}>
+            <Text style={styles.titulo}>FeedIt</Text>
+            <Image source={require('../assets/circDino.png')} style={styles.imagem} />
 
-      <Text style={styles.texto}>Senha:</Text>
-      <TextInput secureTextEntry={true} style={[styles.textInput]} />
+            
+            <View style={styles.containerLogin}>
+              <Text style={styles.texto}>Email:</Text>
+              <Controller
+                  control={control}
+                  name='email'
+                  render={({ field: { onChange, value } }) => (
+                      <TextInput style={ [styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} />
+                  )}
+              />
+              <View style={styles.erro}>
+               {errors.email && <Text style={styles.erroMensagem}>{errors.email?.message}</Text>}
+              </View>
+            </View>
+           
+            <View style={styles.containerLogin}>  
+            <Text style={styles.texto}>Senha:</Text>
+            <Controller
+                control={control}
+                name='senha'
+                render={({ field: { onChange, value } }) => (
+                    <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} secureTextEntry={true} />
+                )}
+            />
+              <View style={styles.erro}>
+              {errors.senha && <Text style={styles.erroMensagem}>{errors.senha?.message}</Text>}
+              </View>
+            </View> 
 
-      <TouchableOpacity style={styles.btnEntrar}>
-        <Text style={styles.btnEntrarText}>ENTRAR</Text>
-      </TouchableOpacity>
+            <View style={styles.containerLogin}>
+              <TouchableOpacity style={styles.btnEntrar} onPress={handleSubmit(verificaLogin)}>
+                  <Text style={styles.btnEntrarText}>ENTRAR</Text>
+              </TouchableOpacity>
 
-      <TouchableOpacity style={styles.btnCadastro} onPress={() => navigation.navigate('cadastro')}>
-        <Text style={styles.btnCadastroText}>CADASTRAR</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
+              <TouchableOpacity style={styles.btnCadastro} onPress={() => navigation.navigate("cadastro")}>
+                  <Text style={styles.btnCadastroText}>CADASTRAR</Text>
+              </TouchableOpacity>
+            </View> 
+        </View>
+    );
+  }
 
 const styles = StyleSheet.create({
   container: {
