@@ -21,15 +21,10 @@ export default function Exercicos(){
                         andaram hoje:
                     </Text>
                 </View>
-                <View style={styles.andou}>  
+                <View style={styles.centeredView}>
                     <Image source={elipse} style={styles.elipse} />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.km}>
-                            0
-                        </Text>
-                    </View>
+                    <Text style={styles.km}>0</Text>
                 </View>
-
                 <Image source={shadow} style={styles.shadow}/>
                 <Image source={dino_lv1} style={styles.dino} />
             </ImageBackground>
@@ -59,36 +54,33 @@ const styles = StyleSheet.create({
         alignSelf:'flex-start',
         marginLeft:'15%',
     },
-    andou:{
-        alignSelf: 'center',
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        marginTop: '50%',
     },
     elipse:{
         width: 220,
         height:220,
-        marginTop:'5%',
-    },
-    textContainer: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     km: {
         fontSize: 80,
         color: 'white',
         fontFamily: 'Poppins_700Bold',
+        position: 'absolute',
     },
     dino:{
         width: 220,
         height:220,
         position: 'absolute',
-        bottom:85,
+        bottom:80.5,
     },
     shadow:{
         width:441,
         height:184,
         position:'absolute',
-        bottom:0,
+        bottom:-5,
     },
 });
