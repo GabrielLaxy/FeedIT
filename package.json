@@ -9,12 +9,20 @@
     "web": "expo start --web"
   },
   "dependencies": {
+<<<<<<< Updated upstream
+=======
+    "@expo-google-fonts/inter": "^0.2.3",
+    "@expo-google-fonts/poppins": "^0.2.3",
+    "@hookform/resolvers": "^3.4.0",
+>>>>>>> Stashed changes
     "@react-navigation/bottom-tabs": "^6.5.20",
     "expo": "~51.0.4",
     "expo-av": "^14.0.4",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
-    "react-native": "0.74.1"
+    "react-hook-form": "^7.51.4",
+    "react-native": "0.74.1",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

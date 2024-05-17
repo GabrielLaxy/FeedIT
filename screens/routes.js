@@ -151,6 +151,7 @@ function Routes() {
   );
 }
 
+<<<<<<< Updated upstream
 const styles = StyleSheet.create({
   headerTitle: {
     flex: 1,
@@ -165,3 +166,22 @@ const styles = StyleSheet.create({
 });
 
 export default Routes;
+=======
+export default function Navigation(){
+  const [fontLoaded] = useFonts({
+    Poppins_700Bold,
+  });
+  
+  if (!fontLoaded){
+    return null;
+  };
+  return(
+      <NavigationContainer>
+          
+          {/* {<BackgroundMusic/>} */}
+          <StackGroup/>
+          {/* <TabGroup/> */}
+      </NavigationContainer>
+  );
+}
+>>>>>>> Stashed changes
