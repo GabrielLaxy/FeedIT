@@ -100,6 +100,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
+    containerLogin:{
+        marginTop:0,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      },
+    erro:{
+        height: 20,
+      },
+    btnVoltar: {
+        marginTop: '12%',
+        marginLeft: '-78%',
+    },
     btnVoltar:{
         marginTop:'12%',
         marginLeft:'-78%',
