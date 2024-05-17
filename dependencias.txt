@@ -4,8 +4,8 @@ npm install @react-navigation/native@latest
 npm install @react-navigation/native-stack@latest
 npm install @react-navigation/bottom-tabs@latest
 npm install expo-av@latest
-npx expo install expo-font
-npx expo install expo-font @expo-google-fonts/poppins
+npx expo install expo-font@latest
+npx expo install expo-font @expo-google-fonts/poppins@latest
 
 comando para atualizar as dependencias 
 npx expo install --fix

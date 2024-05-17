@@ -4,22 +4,20 @@ import { AntDesign } from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-const btnInitialPosition = -windowHeight + 20;
-const panelInitialPosition = (-windowHeight / 3.5)-20;
 
 const backgroundImage = require('../assets/home_background.png');
 const dino_lv1 = require('../assets/dino_lv1.png');
 const shadow = require('../assets/sombra.png');
 
 export default function Home() {
-    const panelYPosition = useRef(new Animated.Value(0)).current;
-    const buttonYPosition = useRef(new Animated.Value(20)).current; 
+    const panelYPosition = useRef(new Animated.Value(-windowHeight / 3.5)).current;
+    const buttonYPosition = useRef(new Animated.Value(0)).current; 
     const [panelOpen, setPanelOpen] = useState(false);
     // console.log(btnInitialPosition);
 
 
     const togglePanel = () => {
-        const toValue = panelOpen ? 0 : windowHeight / 3.5;
+        const toValue = panelOpen ?  -windowHeight / 3.5: 0;
         const buttonToValue = panelOpen ? 0 : windowHeight / 3.5 + 10; 
     
         Animated.timing(panelYPosition, {
@@ -43,6 +41,7 @@ export default function Home() {
         backgroundColor: '#FBFEF4',
         position: 'absolute',
         width: '100%',
+        top:0,
         height: windowHeight / 3.5,
         borderBottomLeftRadius: 40,
         borderBottomRightRadius: 40,
@@ -51,8 +50,10 @@ export default function Home() {
     const buttonStyle = {
         transform: [{ translateY: buttonYPosition }],
         position: 'absolute',
-        top: 20,
+        top: 5,
         alignItems: 'center',
+        
+        
         // zIndex: 1, 
     };
     
@@ -63,12 +64,12 @@ export default function Home() {
             <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.imageBackground}>
                 <Image source={shadow} style={styles.shadow}/>
                 <Image source={dino_lv1} style={styles.dino} />
-                <TouchableOpacity onPress={togglePanel} style={buttonStyle}>
-                    <AntDesign name={panelOpen ? "down" : "up"} size={24} color="black" />
-                </TouchableOpacity>
                 <Animated.View style={panelStyle}>
                     <Text>Status</Text>
                 </Animated.View>
+                <TouchableOpacity onPress={togglePanel} style={buttonStyle}>
+                    <AntDesign name={panelOpen ? "up" : "down"} size={30} color={'black'} />
+                </TouchableOpacity>
             </ImageBackground>
         </View>
     );
@@ -103,5 +104,8 @@ const styles = StyleSheet.create({
         right: 20, 
         zIndex: 1, 
     },
-    
+    seta:{
+        
+        
+    }
 });
