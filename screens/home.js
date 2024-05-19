@@ -68,7 +68,7 @@ export default function Home() {
                     <Text>Status</Text>
                 </Animated.View>
                 <TouchableOpacity onPress={togglePanel} style={buttonStyle}>
-                    <AntDesign name={panelOpen ? "up" : "down"} size={30} color={'black'} />
+                    <AntDesign name={panelOpen ? "up" : "down"} size={30} color={'#5C4B4B'} />
                 </TouchableOpacity>
             </ImageBackground>
         </View>
