@@ -1,87 +1,68 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Modal, Image} from 'react-native';
-import { Camera } from 'expo-camera';
+import React, { useState, useRef, useEffect } from 'react';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Modal, Image } from 'react-native';
+import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function TirarFoto(){
+export default function TirarFoto() {
   const camRef = useRef(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [temPermissao, setTemPermissao] = useState(null); 
+  const [facing, setFacing] = useState('back');
+  const [permission, requestPermission] = useCameraPermissions();
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const [open, setOpen] = useState(false);
 
-
   useEffect(() => {
     (async () => {
-      const {status} = await Camera.requestCameraPermissionsAsync();
-      setTemPermissao(status === 'granted');
+      if (!permission) {
+        await requestPermission();
+      }
     })();
-  },[]);
-  
-  if(temPermissao === null){
-    return <View/>;
-  }
-  if(temPermissao === false){
-    return <Text>Acesso Negado!</Text>
+  }, [permission]);
+
+  if (!permission) {
+    return <View />;
   }
 
-  async function takePicture(){
-    if(camRef){
-      const data = await camRef.current.takePictureAsync();
-      setCapturedPhoto(data.uri);
+  if (!permission.granted) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ textAlign: 'center' }}>Por favor, precisamos de permição de acesso a sua câmera</Text>
+        <TouchableOpacity onPress={requestPermission}>
+          <Text style={styles.buttonText}>Grant Permission</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  async function takePicture() {
+    if (camRef.current) {
+      const photo = await camRef.current.takePictureAsync();
+      setCapturedPhoto(photo.uri);
       setOpen(true);
-      console.log(data);
+      console.log(photo);
     }
   }
 
   return (
-      <SafeAreaView style={styles.container}>
-        <Camera 
-          style={{ flex: 1 }}
-          type={type}
-          ref = {camRef}
-        >
-          <View style ={{flex: 1, backgroundColor:'transparent', flexDirection: 'row'}}>
-            <TouchableOpacity 
-            style={{position: 'absolute', bottom: 20, left: 20,}}
-            onPress = { () => {
-              setType(
-                type === Camera.Constants.Type.back
-                ? Camera.Constants.Type.front
-                : Camera.Constants.Type.back
-              );
-            }}
-            >
-              <Text style={{fontSize: 20, marginBottom: 13, color: '#fff'}}>Trocar</Text>
-            </TouchableOpacity>
-          </View>
-        </Camera>
+    <SafeAreaView style={styles.container}>
+      <CameraView style={{ flex: 1 }} facing={facing} ref={camRef}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={takePicture}>
+            <FontAwesome name="camera" size={23} color="#fff" />
+          </TouchableOpacity>
+        </View>
+      </CameraView>
 
-        <TouchableOpacit styles={styles.button} 
-        onPress={takePicture}
-        >
-            <FontAwesome name="camera" size={23} color="#fff"/>
-        </TouchableOpacit>
-        {capturedPhoto && 
-          <Modal 
-          animationType="slide" 
-          transparant ={false} 
-          visible={open}
-          > 
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', margin: 20}}>
-              <TouchableOpacity style={{margin: 10}} onPress={() => setOpen(false)}>
-                <FontAwesome name="window-close" size={50} color="#ff0000"/>
-              </TouchableOpacity>
-            </View>
-            <Image 
-              style={{width: '100%', height: 300, borderRadius:20}}
-              source={{uri: capturedPhoto}}
-            />
-          </Modal>
-        }
-      </SafeAreaView>
+      {capturedPhoto && (
+        <Modal animationType="slide" transparent={false} visible={open}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity style={styles.closeButton} onPress={() => setOpen(false)}>
+              <FontAwesome name="window-close" size={50} color="#ff0000" />
+            </TouchableOpacity>
+            <Image style={styles.capturedImage} source={{ uri: capturedPhoto }} />
+          </View>
+        </Modal>
+      )}
+    </SafeAreaView>
   );
 }
 
@@ -90,12 +71,39 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  button:{
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    margin: 20,
+    alignSelf: 'center',
+  },
+  button: {
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: '#121212',
+    marginBottom: '20%',
+    borderRadius: 40,
+    height: 65,
+    width:65,
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#fff',
+  },
+  modalContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#121212',
     margin: 20,
-    borderRadius: 10,
-    height: 50,
-  }
+  },
+  closeButton: {
+    margin: 10,
+  },
+  capturedImage: {
+    width: '100%',
+    height: 300,
+    borderRadius: 20,
+  },
 });

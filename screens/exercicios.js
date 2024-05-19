@@ -24,6 +24,9 @@ export default function Exercicos(){
                 <View style={styles.centeredView}>
                     <Image source={elipse} style={styles.elipse} />
                     <Text style={styles.km}>0</Text>
+                    <Text style={styles.km2}>
+                        Km
+                    </Text>
                 </View>
                 <Image source={shadow} style={styles.shadow}/>
                 <Image source={dino_lv1} style={styles.dino} />
@@ -62,14 +65,22 @@ const styles = StyleSheet.create({
         marginTop: '50%',
     },
     elipse:{
-        width: 220,
-        height:220,
+        width: 205,
+        height:205,
     },
     km: {
-        fontSize: 80,
+        fontSize: 100,
         color: 'white',
         fontFamily: 'Poppins_700Bold',
         position: 'absolute',
+        top: '5%',
+    },
+    km2: {
+        fontSize: 40,
+        color: 'white',
+        fontFamily: 'Poppins_700Bold',
+        position: 'absolute',
+        top: '60%',
     },
     dino:{
         width: 220,

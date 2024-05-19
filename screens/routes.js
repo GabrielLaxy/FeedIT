@@ -8,7 +8,7 @@ import { NavigationContainer} from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
-import MusicBackground from '../music.js';
+import BackgroundMusic from '../backend/music.js';
 
 //import icons
 import { AntDesign } from '@expo/vector-icons';
@@ -19,7 +19,6 @@ import { Feather } from '@expo/vector-icons';
 //Camera
 //<Feather name="camera" size={24} color="black" />
 import { FontAwesome5 } from '@expo/vector-icons';
-import BackgroundMusic from '../music.js';
 //<FontAwesome5 name="running" size={24} color="black" />
 
 const Tab = createBottomTabNavigator();

@@ -1,18 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
+const circDino = require('../assets/circDino.png');
+const SetaCadastro = require('../assets/SetaCadastro.png');
+
 export default function Perfil({}){
     return( 
         <View style={styles.container}> 
             <View style={styles.ladoALado}>
                 <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('config')}>
-                    <Image source={require('@/assets/SetaCadastro.png')}></Image>
+                    <Image source={SetaCadastro}></Image>
                 </TouchableOpacity>
                 <Text style={styles.title}>Perfil</Text>
             </View>
 
             <View style={styles.ladoALado}>
-                <Image source={require('@/assets/circDino.png')} style={styles.imagem}></Image>
+                <Image source={circDino} style={styles.imagem}></Image>
                 <Text style={styles.textNome}>DINO</Text>
             </View>
             <Text style={styles.textEmail}>Email:</Text>
