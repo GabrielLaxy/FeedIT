@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, Image, ImageBackground, StyleSheet, Dimensions, Animated, TouchableOpacity, Easing } from 'react-native';
-import { Entypo } from '@expo/vector-icons'; // Importe o ícone que você deseja usar
+import { AntDesign } from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -10,43 +10,66 @@ const dino_lv1 = require('../assets/dino_lv1.png');
 const shadow = require('../assets/sombra.png');
 
 export default function Home() {
-    const panelYPosition = useRef(new Animated.Value(-windowHeight)).current;
+    const panelYPosition = useRef(new Animated.Value(-windowHeight / 3.5)).current;
+    const buttonYPosition = useRef(new Animated.Value(0)).current; 
     const [panelOpen, setPanelOpen] = useState(false);
+    // console.log(btnInitialPosition);
+
 
     const togglePanel = () => {
-        const toValue = panelOpen ? -windowHeight : 0;
+        const toValue = panelOpen ?  -windowHeight / 3.5: 0;
+        const buttonToValue = panelOpen ? 0 : windowHeight / 3.5 + 10; 
+    
         Animated.timing(panelYPosition, {
             toValue: toValue,
-            duration: 600,
-            easing: Easing.sin,
-            useNativeDriver: false
+            duration: 500,
+            useNativeDriver: true 
         }).start();
+    
+        Animated.timing(buttonYPosition, {
+            toValue: buttonToValue,
+            duration: 500,
+            useNativeDriver: true 
+        }).start();
+    
         setPanelOpen(!panelOpen);
     };
+    
 
     const panelStyle = {
         transform: [{ translateY: panelYPosition }],
         backgroundColor: '#FBFEF4',
         position: 'absolute',
-        top: 0,
         width: '100%',
+        top:0,
         height: windowHeight / 3.5,
         borderBottomLeftRadius: 40,
         borderBottomRightRadius: 40,
     };
 
+    const buttonStyle = {
+        transform: [{ translateY: buttonYPosition }],
+        position: 'absolute',
+        top: 5,
+        alignItems: 'center',
+        
+        
+        // zIndex: 1, 
+    };
+    
+    
 
     return (
         <View style={styles.container}>
             <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.imageBackground}>
                 <Image source={shadow} style={styles.shadow}/>
                 <Image source={dino_lv1} style={styles.dino} />
-                <TouchableOpacity onPress={togglePanel} style={styles.iconContainer}>
-                    <Entypo name={panelOpen ? "arrow-with-circle-up" : "arrow-with-circle-down"} size={24} color="black" />
-                </TouchableOpacity>
                 <Animated.View style={panelStyle}>
                     <Text>Status</Text>
                 </Animated.View>
+                <TouchableOpacity onPress={togglePanel} style={buttonStyle}>
+                    <AntDesign name={panelOpen ? "up" : "down"} size={30} color={'black'} />
+                </TouchableOpacity>
             </ImageBackground>
         </View>
     );
@@ -77,9 +100,12 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
         position: 'absolute',
-        top: 20, // Posição do ícone a partir do topo da tela
-        right: 20, // Posição do ícone a partir da direita da tela
-        zIndex: 1, // Garante que o ícone esteja acima do conteúdo da tela
+        top: 20,
+        right: 20, 
+        zIndex: 1, 
     },
-    // Adicione estilos adicionais conforme necessário
+    seta:{
+        
+        
+    }
 });
