@@ -5,7 +5,7 @@ export default function Tasks(){
     return(
         <View>
             <Text>
-                Tasks
+                Taks
             </Text>
         </View>
     );
