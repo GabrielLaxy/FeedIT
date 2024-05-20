@@ -1,5 +1,8 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, ImageBackground, Dimensions, StyleSheet } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const ProgressBar = ({ progress }) => {
     return (
@@ -22,7 +25,7 @@ export default function Tasks() {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={require('..\assets\backgroundTasks.png')}
+                source={require('../assets/backgroundTasks.png')}
                 style={styles.image}>
                 <Text style={styles.text}>Tarefas</Text>
                 <TopicWithProgress title="Carnes" progress={0.7} />
@@ -37,26 +40,27 @@ export default function Tasks() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItens: 'center',
     },
     image: {
         flex: 1,
+        width: windowWidth,
+        height: windowHeight,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
+        padding:20,
     },
     text: {
         color: 'white',
         fontSize: 24,
-        fontWeight: 'bold',
         marginBottom: 20,
+        fontFamily: "Poppins_700Bold",
     },
     topicos: {
-        backgroundColor: "#FBFEF4",
         color: "#5C4B4B",
-        fontFamily: "Poppins",
+        fontFamily: "Poppins_700Bold",
         fontSize: 20,
         textAlign: 'left',
-        fontWeight: 'bold',
         marginTop: 20,
         marginLeft: 0,
     },

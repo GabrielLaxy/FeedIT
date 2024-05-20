@@ -8,7 +8,7 @@ export default function Config() {
         {'\n'}Configurações
       </Text>
       <Text style={linha}>
-        -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -
+        -    -    -    -    -    -    -    -    -    -    -    -
         {/* Preciso descobrir como fazer essa linha de um jeito mais limpo, tentei colocar uma borda pontilhada e não deu certo */}
       </Text>
       <Text style={topicos}>Sons</Text>
@@ -29,29 +29,27 @@ export default function Config() {
 const titulo = {
   backgroundColor: "#FBFEF4",
   color: "#5C4B4B",
-  fontFamily: "Poppins",
+  fontFamily: "Poppins_700Bold",
   fontSize: 27,
   textAlign: 'center',
-  fontWeight: 'bold',
 };
 
 const linha = {
   backgroundColor: "#FBFEF4",
   color: "#5C4B4B",
-  fontFamily: "Poppins",
-  fontSize: 10,
+  fontFamily: "Poppins_700Bold",
+  fontSize: 20,
   textAlign: 'center',
-  fontWeight: 'thin',
   marginTop: 20,
+  margin:20,
 };
 
 const topicos = {
   backgroundColor: "#FBFEF4",
   color: "#5C4B4B",
-  fontFamily: "Poppins",
+  fontFamily: "Poppins_700Bold",
   fontSize: 20,
   textAlign: 'left',
-  fontWeight: 'bold',
   marginTop: 20,
   marginLeft: 50,
 };
