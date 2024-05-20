@@ -1,14 +1,26 @@
 import React from 'react';
 import  { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 
 export default function EscolhaNome({navigation}){
 
-    const [nomeBicho, setNomeBicho] = useState('');
+    const schema = yup.object({
+        nomeBicho: yup.string().required("É obrigatório dar um nome para seu novo amigo!"),
+    });
+
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
+    function verificaAmigo(data) {
+        navigation.navigate('TabGroup');
+        // Adicionar no Banco de Dados
+    }
+
     return(
         <View style={styles.container}>
             <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('cadastro')}>
@@ -19,9 +31,17 @@ export default function EscolhaNome({navigation}){
 
             <Text style={styles.titulo}>Escolha o nome do seu IT!</Text>
 
-            <TextInput style={styles.textInput} onChangeText={text=>setNomeBicho(text)}></TextInput>
-
-            <TouchableOpacity style={styles.btnIniciarJogo}onPress={() => navigation.navigate('TabGroup')}>
+            <Controller
+                    control={control}
+                    name='nomeBicho'
+                    render={({ field: { onChange, value } }) => (
+                        <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value}/>
+                    )}
+                />
+            <View style={styles.erro}>
+                {errors.nomeBicho && <Text style={styles.erroMensagem}>{errors.nomeBicho?.message}</Text>}
+            </View>
+            <TouchableOpacity style={styles.btnIniciarJogo}onPress={handleSubmit(verificaAmigo)}>
                 <Text style={styles.textBtnIniciar} >INICIAR JOGO</Text>
             </TouchableOpacity>
         </View>
@@ -38,6 +58,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
 
     },
+    containerEscolhaNome:{
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      },
     btnVoltar:{
         marginTop:'12%',
         marginLeft:'-78%',
@@ -52,6 +77,9 @@ const styles = StyleSheet.create({
         height:400,
         width:400,
     },
+    erro:{
+        height: 20,
+      },
     textInput: {
         backgroundColor: '#BCD8B3',
         height: 55,
@@ -80,5 +108,10 @@ const styles = StyleSheet.create({
         textAlign:'center', 
         fontSize: 20, 
         fontFamily:'Poppins_700Bold',
+    },
+    erroMensagem: {
+        textAlign:'center',
+        color: 'red',
+        height: 20,
     },
 });
