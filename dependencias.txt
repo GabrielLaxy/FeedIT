@@ -10,6 +10,7 @@ npm install react-hook-form
 npm install @hookform/resolvers yup
 npx expo install expo-camera@latest
 npm install react-native-fs
+npm install react-native-dashed-line
 
 
 comando para atualizar as dependencias 
