@@ -9,8 +9,7 @@ npx expo install expo-font @expo-google-fonts/poppins@latest
 npm install react-hook-form
 npm install @hookform/resolvers yup
 npx expo install expo-camera@latest
-npm install react-native-fs
-
+npm install dotenv@latest
 
 comando para atualizar as dependencias 
 npx expo install --fix
