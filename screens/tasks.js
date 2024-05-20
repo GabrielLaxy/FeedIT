@@ -28,10 +28,10 @@ export default function Tasks() {
                 source={require('../assets/backgroundTasks.png')}
                 style={styles.image}>
                 <Text style={styles.text}>Tarefas</Text>
-                <TopicWithProgress title="Carnes" progress={0.7} />
-                <TopicWithProgress title="Carboidratos" progress={0.5} />
-                <TopicWithProgress title="Frutas" progress={0.8} />
-                <TopicWithProgress title="Doces" progress={0.3} />
+                <TopicWithProgress title="Carnes" progress={0.7}/>
+                <TopicWithProgress title="Carboidratos" progress={0.5}/>
+                <TopicWithProgress title="Frutas" progress={0.8}/>
+                <TopicWithProgress title="Doces" progress={0.3}/>
             </ImageBackground>
         </View>
     );
@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        fontSize: 24,
-        marginBottom: 20,
+        fontSize: 27,
+        marginBottom: 40,
         fontFamily: "Poppins_700Bold",
     },
     topicos: {
-        color: "#5C4B4B",
+        color: "#FFFFFF",
         fontFamily: "Poppins_700Bold",
         fontSize: 20,
         textAlign: 'left',
@@ -71,13 +71,18 @@ const styles = StyleSheet.create({
     progressBarContainer: {
         width: '100%',
         height: 20,
-        backgroundColor: '#e0e0e0',
+        backgroundColor: 'white',
         borderRadius: 10,
         overflow: 'hidden',
         marginTop: 10,
+        borderWidth: 1,  
+        borderColor: 'white',  
+        padding: 2,  
     },
     progressBar: {
         height: '100%',
-        backgroundColor: '#3b5998',
+        backgroundColor: '#26A910',
+        borderRadius: 8,  
+
     },
 });
