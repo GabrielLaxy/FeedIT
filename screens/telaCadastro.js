@@ -19,6 +19,7 @@ export default function TelaCadastro({ navigation }){
 
     function verificaCadastro(data) {
         navigation.navigate('escolhaNome');
+        // Adicionar no Banco de Dados
     }
 
     return (
@@ -29,7 +30,7 @@ export default function TelaCadastro({ navigation }){
             <Text style={styles.titulo}>FeedIt</Text>
             <Image source={require('../assets/circDino.png')} style={styles.imagem} />
 
-            <View style={styles.containerLogin}>
+            <View style={styles.containerCadastro}>
                 <Text style={[styles.text]}>Nome:</Text>
                 <Controller
                     control={control}
@@ -43,7 +44,7 @@ export default function TelaCadastro({ navigation }){
                 </View>
             </View>
 
-            <View style={styles.containerLogin}>
+            <View style={styles.containerCadastro}>
                 <Text style={styles.text}>Responsável:</Text>
                 <Controller
                     control={control}
@@ -57,7 +58,7 @@ export default function TelaCadastro({ navigation }){
                 </View>
             </View> 
 
-            <View style={styles.containerLogin}>
+            <View style={styles.containerCadastro}>
             <Text style={styles.text}>E-mail:</Text>
             <Controller
                 control={control}
@@ -71,7 +72,7 @@ export default function TelaCadastro({ navigation }){
             </View>
             </View>
 
-            <View style={styles.containerLogin}>
+            <View style={styles.containerCadastro}>
                 <Text style={styles.text}>Senha:</Text>
                 <Controller
                     control={control}
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
-    containerLogin:{
+    containerCadastro:{
         width: '100%',
         alignItems: 'center',
         justifyContent: 'space-between',

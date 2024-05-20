@@ -179,8 +179,8 @@ export default function Navigation(){
       <NavigationContainer>
           
           {/* <BackgroundMusic/> */}
-           {/* <StackGroup/> */}
-          <TabGroup/>
+            <StackGroup/>
+          {/* <TabGroup/> */}
       </NavigationContainer>
   );
 }
