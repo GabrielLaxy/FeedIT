@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Modal, Image } from 'react-native';
 import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
 import { FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
 
 export default function TirarFoto() {
   const camRef = useRef(null);
@@ -39,7 +40,20 @@ export default function TirarFoto() {
       console.log(photo);
       setCapturedPhoto(photo.uri);
       setOpen(true);
-      console.log(photo);
+      enviarParaOBack(photo.base64);
+    }
+  }
+
+  async function enviarParaOBack(imagemBase64) {
+    const url = 'http://seu-backend.com/enviar-imagem';
+  
+    try {
+      const response = await axios.post(url, {
+        imagem: imagemBase64
+      });
+      console.log('Imagem enviada com sucesso:', response.data);
+    } catch (error) {
+      console.error('Erro ao enviar imagem:', error);
     }
   }
 
