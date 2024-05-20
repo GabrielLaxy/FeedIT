@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import DashedLine from 'react-native-dashed-line';
 
 export default function Config() {
   return (
@@ -7,10 +8,9 @@ export default function Config() {
       <Text style={styles.titulo}>
         {'\n'}Configurações
       </Text>
-      <Text style={styles.linha}>
-        -    -    -    -    -    -    -    -    -    -    -    -
-        {/* Preciso descobrir como fazer essa linha de um jeito mais limpo, tentei colocar uma borda pontilhada e não deu certo */}
-      </Text>
+      <View style={{ padding: '5%'}}>
+        <DashedLine dashLength={5} dashThickness={2} dashGap={10} dashColor='#5C4B4B'/>
+      </View>
       <Text style={styles.topicos}>Sons</Text>
       <Text style={styles.topicos}>Música</Text>
       <TouchableOpacity onPress={() => alert('Perfil clicked')}>
