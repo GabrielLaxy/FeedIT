@@ -35,7 +35,8 @@ export default function TirarFoto() {
 
   async function takePicture() {
     if (camRef.current) {
-      const photo = await camRef.current.takePictureAsync();
+      const photo = await camRef.current.takePictureAsync({base64: true});
+      console.log(photo);
       setCapturedPhoto(photo.uri);
       setOpen(true);
       console.log(photo);
