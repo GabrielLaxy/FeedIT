@@ -59,7 +59,14 @@ export default function TirarFoto() {
 
   return (
     <SafeAreaView style={styles.container}>
+      
       <CameraView style={{ flex: 1 }} facing={facing} ref={camRef}>
+        <Text style={styles.text1}>
+          Alimente o
+        </Text>
+        <Text style={styles.text2}>
+          Dino
+        </Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={takePicture}>
             <FontAwesome name="camera" size={23} color="#fff" />
@@ -120,5 +127,18 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300,
     borderRadius: 20,
+  },
+  text1: {
+    fontSize: 34,
+    color: 'white',
+    fontFamily:'Poppins_700Bold',
+    marginLeft:'8%',
+    marginTop:'8%',
+  },
+  text2: {
+    fontSize: 34,
+    color: 'white',
+    fontFamily:'Poppins_700Bold',
+    marginLeft:'8%',
   },
 });

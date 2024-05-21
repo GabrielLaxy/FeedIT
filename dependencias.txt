@@ -20,3 +20,4 @@ comandos para instalar elementos de design:
 npm install react-native-paper
 npm install react-native-vector-icons
 npm install react-native-safe-area-context
+npm install react-native-dashed-line
