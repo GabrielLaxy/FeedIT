@@ -1,6 +1,6 @@
 import React from 'react';
 import  { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -22,11 +22,12 @@ export default function EscolhaNome({navigation}){
     }
 
     return(
+        <ScrollView>
         <View style={styles.container}>
             <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('cadastro')}>
                 <Image source={require('../assets/SetaCadastro.png')}></Image>
             </TouchableOpacity>
-
+        
             <Image source={require('../assets/circDino.png')} style={styles.imagem}></Image>
 
             <Text style={styles.titulo}>Escolha o nome do seu IT!</Text>
@@ -45,7 +46,7 @@ export default function EscolhaNome({navigation}){
                 <Text style={styles.textBtnIniciar} >INICIAR JOGO</Text>
             </TouchableOpacity>
         </View>
-    
+        </ScrollView>
     );
 }
 
