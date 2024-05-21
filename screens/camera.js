@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Modal, Image } from 'react-native';
 import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
 import { FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
 
 export default function TirarFoto() {
   const camRef = useRef(null);
@@ -39,13 +40,33 @@ export default function TirarFoto() {
       console.log(photo);
       setCapturedPhoto(photo.uri);
       setOpen(true);
-      console.log(photo);
+      enviarParaOBack(photo.base64);
+    }
+  }
+
+  async function enviarParaOBack(imagemBase64) {
+    const url = 'http://seu-backend.com/enviar-imagem';
+  
+    try {
+      const response = await axios.post(url, {
+        imagem: imagemBase64
+      });
+      console.log('Imagem enviada com sucesso:', response.data);
+    } catch (error) {
+      console.error('Erro ao enviar imagem:', error);
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
+      
       <CameraView style={{ flex: 1 }} facing={facing} ref={camRef}>
+        <Text style={styles.text1}>
+          Alimente o
+        </Text>
+        <Text style={styles.text2}>
+          Dino
+        </Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={takePicture}>
             <FontAwesome name="camera" size={23} color="#fff" />
@@ -106,5 +127,18 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300,
     borderRadius: 20,
+  },
+  text1: {
+    fontSize: 34,
+    color: 'white',
+    fontFamily:'Poppins_700Bold',
+    marginLeft:'8%',
+    marginTop:'8%',
+  },
+  text2: {
+    fontSize: 34,
+    color: 'white',
+    fontFamily:'Poppins_700Bold',
+    marginLeft:'8%',
   },
 });
