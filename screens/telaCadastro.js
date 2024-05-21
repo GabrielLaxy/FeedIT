@@ -1,6 +1,6 @@
 import React from 'react';
 import  { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -23,13 +23,13 @@ export default function TelaCadastro({ navigation }){
     }
 
     return (
+        <ScrollView>
         <View style={styles.container}>
             <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('login')}>
                 <Image source={require('../assets/SetaCadastro.png')} />
             </TouchableOpacity>
             <Text style={styles.titulo}>FeedIt</Text>
             <Image source={require('../assets/circDino.png')} style={styles.imagem} />
-
             <View style={styles.containerCadastro}>
                 <Text style={[styles.text]}>Nome:</Text>
                 <Controller
@@ -89,6 +89,7 @@ export default function TelaCadastro({ navigation }){
                 <Text style={styles.btnCadastrarText}>CADASTRAR</Text>
             </TouchableOpacity>
         </View>
+        </ScrollView>
     );
 }
 

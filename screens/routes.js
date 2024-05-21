@@ -177,9 +177,9 @@ export default function Navigation(){
   };
   return(
       <NavigationContainer>
-          
+          <StackGroup/>
           {/* <BackgroundMusic/> */}
-          <TabGroup/>
+          {/* <TabGroup/> */}
       </NavigationContainer>
   );
 }
