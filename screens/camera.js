@@ -37,15 +37,14 @@ export default function TirarFoto() {
   async function takePicture() {
     if (camRef.current) {
       const photo = await camRef.current.takePictureAsync({base64: true});
-      console.log(photo);
       setCapturedPhoto(photo.uri);
       setOpen(true);
-      enviarParaOBack(photo.base64);
+      enviarParaOBack(photo);
     }
   }
 
   async function enviarParaOBack(imagemBase64) {
-    const url = 'http://seu-backend.com/enviar-imagem';
+    const url = '/enviar-imagem';
   
     try {
       const response = await axios.post(url, {

@@ -2,27 +2,15 @@ import google.generativeai as genai
 import PIL.Image
 import dotenv
 import os
-from fastapi import FastAPI
-
+import base64
+import binascii
+from io import BytesIO
 from fastapi import FastAPI, Request
+import httpx
 
 app = FastAPI()
 
-@app.post("/enviar-imagem")
-async def receber_imagem(request: Request):
-    dados = await request.json()
-    imagem_base64 = dados.get('imagem')
-
-    if isinstance(imagem_base64, str) and imagem_base64.startswith('data:image'):
-        print("Imagem recebida e validada.")
-        return {"mensagem": "Imagem recebida com sucesso"}
-    else:
-        return {"erro": "Formato de imagem inválido"}
-
-
-
 dotenv.load_dotenv(dotenv.find_dotenv())
-
 genai.configure(api_key=os.getenv("API_KEY"))
 
 def redimensiona_img(img):
@@ -39,12 +27,52 @@ def verifica_e_redimensiona(img):
     else:
         return img
 
-#inserção de imagens de teste
-source = 'baixados.png'
-img_original = PIL.Image.open(source)
-img_processada = verifica_e_redimensiona(img_original)
+async def enviar_resposta_para_servidor(resposta):
+    url = "/receber-resposta" 
+    dados = {"resposta": resposta}
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(url, json=dados)
+            response.raise_for_status()
+            print("Resposta enviada com sucesso para o servidor.")
+        except httpx.HTTPStatusError as http_err:
+            print(f"HTTP error occurred: {http_err.response.status_code} - {http_err.response.text}")
+        except Exception as err:
+            print(f"Other error occurred: {err}")
 
-model = genai.GenerativeModel('gemini-pro-vision')
-resposta = model.generate_content(["Write the classification of the food in the image(Carbohydrates,Fruits,candy, Vegetables, Dairy, Proteins, Nuts, Sweets, Sausages), just 1 word, if there ar no food in the image just write nfound",img_processada])
+@app.post("/enviar-imagem")
+async def receber_imagem(request: Request):
+    dados = await request.json()
+    imagem_base64 = dados.get('imagem')
 
-print(resposta.text)
+    if isinstance(imagem_base64, str) and imagem_base64.startswith('data:image'):
+        print("Imagem recebida e validada.")
+        try:
+            header, imagem_base64 = imagem_base64.split(',', 1)
+            imagem_decodificada = base64.b64decode(imagem_base64)
+            
+            imagem = PIL.Image.open(BytesIO(imagem_decodificada))
+
+            img_processada = verifica_e_redimensiona(imagem)
+
+            buffered = BytesIO()
+            img_processada.save(buffered, format="PNG")
+            img_processada_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+            model = genai.GenerativeModel('gemini-pro-vision')
+            resposta = model.generate_content(["Write the classification of the food in the image(Carbohydrates,Fruits,candy, Vegetables, Dairy, Proteins, Nuts, Sweets, Sausages), just 1 word, if there are no food in the image just write nfound", img_processada_base64])
+            
+            resposta_string = resposta.text
+            
+            await enviar_resposta_para_servidor(resposta_string)
+            
+            return resposta_string
+        
+        except binascii.Error as e:
+            print(e)
+            return {"erro": "Erro ao decodificar a imagem base64"}
+        except Exception as e:
+            print(e)
+            return {"erro": str(e)}
+    else:
+        return {"erro": "Formato de imagem inválido"}

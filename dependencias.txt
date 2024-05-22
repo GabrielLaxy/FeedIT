@@ -9,6 +9,7 @@ npx expo install expo-font @expo-google-fonts/poppins@latest
 npm install react-hook-form
 npm install @hookform/resolvers yup
 npx expo install expo-camera@latest
+npx expo install expo-sensors
 
 
 comando para atualizar as dependencias 

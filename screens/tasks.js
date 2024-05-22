@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, ImageBackground, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Image, ImageBackground, Dimensions, StyleSheet } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+const daily = require('../assets/daily.png');
 const ProgressBar = ({ progress }) => {
     return (
         <View style={styles.progressBarContainer}>
@@ -27,7 +28,7 @@ export default function Tasks() {
             <ImageBackground
                 source={require('../assets/backgroundTasks.png')}
                 style={styles.image}>
-                <Text style={styles.text}>Tarefas</Text>
+                <Image source={daily} style={styles.daily}/>
                 <TopicWithProgress title="Carnes" progress={0.7}/>
                 <TopicWithProgress title="Carboidratos" progress={0.5}/>
                 <TopicWithProgress title="Frutas" progress={0.8}/>
@@ -41,6 +42,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItens: 'center',
+        justifyContent: 'space-between',
+    },
+    daily: {
+        width: 877.44/2.6,
+        height: 156/2.6,
+        top: -20,
     },
     image: {
         flex: 1,
@@ -59,30 +66,33 @@ const styles = StyleSheet.create({
     topicos: {
         color: "#FFFFFF",
         fontFamily: "Poppins_700Bold",
-        fontSize: 20,
+        fontSize: 25,
         textAlign: 'left',
-        marginTop: 20,
+        marginTop: 5,
         marginLeft: 0,
+        marginBottom: -20,
     },
     topicContainer: {
         width: '100%',
-        marginBottom: 20,
+        marginBottom: 50,
+        bottom: -30,
     },
     progressBarContainer: {
         width: '100%',
-        height: 20,
+        height: 25,
         backgroundColor: 'white',
-        borderRadius: 10,
+        borderRadius: 40,
         overflow: 'hidden',
         marginTop: 10,
         borderWidth: 1,  
         borderColor: 'white',  
-        padding: 2,  
+        padding: 2, 
+         
     },
     progressBar: {
         height: '100%',
         backgroundColor: '#26A910',
-        borderRadius: 8,  
+        borderRadius: 40,  
 
     },
 });

@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, Dimensions, ImageBackground} from 'react-native';
+import { useState, useEffect } from 'react';
+import {View, Text, Image, StyleSheet, Dimensions, ImageBackground, Platform} from 'react-native';
+import { Pedometer } from 'expo-sensors';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -10,6 +12,48 @@ const shadow = require('../assets/sombra.png');
 const elipse = require('../assets/elipse.png');
 
 export default function Exercicos(){
+    const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
+    const [pastStepCount, setPastStepCount] = useState(0);
+    const [currentStepCount, setCurrentStepCount] = useState(0);
+  
+    const subscribe = async () => {
+      const isAvailable = await Pedometer.isAvailableAsync();
+      setIsPedometerAvailable(String(isAvailable));
+  
+      if (isAvailable) {
+        const end = new Date();
+        const start = new Date();
+        start.setDate(end.getDate() - 1);
+  
+        const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
+        if (pastStepCountResult) {
+          setPastStepCount(pastStepCountResult.steps);
+        }
+  
+        return Pedometer.watchStepCount(result => {
+          setCurrentStepCount(result.steps);
+        });
+      }
+    };
+  
+    useEffect(() => {
+        const initSubscription = async () => {
+            const sub = await subscribe();
+            return sub;
+        };
+        const init = async () => {
+            const sub = await initSubscription();
+            return () => {
+                if (sub) {
+                    sub.remove();
+                }
+            };
+        };
+        const unsubscribe = init();
+
+        return () => unsubscribe();
+    }, []);
+
     return(
         <View style={styles.container}>
             <ImageBackground source={backgroundImageExercicio} resizeMode="cover" style={styles.imageBackground}>
@@ -23,7 +67,9 @@ export default function Exercicos(){
                 </View>
                 <View style={styles.centeredView}>
                     <Image source={elipse} style={styles.elipse} />
-                    <Text style={styles.km}>0</Text>
+                    <Text style={styles.km}>
+                        {Platform.OS === 'ios' ? pastStepCount : currentStepCount}
+                    </Text>
                     <Text style={styles.km2}>
                         Km
                     </Text>
