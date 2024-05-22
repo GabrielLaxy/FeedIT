@@ -9,6 +9,19 @@ const backgroundImage = require('../assets/home_background.png');
 const dino_lv1 = require('../assets/dino_lv1.png');
 const shadow = require('../assets/sombra.png');
 
+const nivel = require('../assets/level.png');
+
+const Level = ({ levelNumber }) => {
+    return (
+      <View style={styles.levelContainer}> 
+      <Text style={styles.text}>
+        {levelNumber}
+      </Text>
+      <Image source={nivel} style={styles.level}/>
+    </View>
+    );
+  };
+
 const ProgressBar = ({ progress }) => {
     return (
         <View style={styles.progressBarContainer}>
@@ -92,9 +105,11 @@ export default function Home() {
     return (
         <View style={styles.container}>
             <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.imageBackground}>
+                
                 <Image source={shadow} style={styles.shadow}/>
                 <Image source={dino_lv1} style={styles.dino} />
                 <Animated.View style={panelStyle}>
+                    <Level levelNumber={1}/>
                     <TopicWithProgress2 progress={0.6}/>
                     <TopicWithProgress title="Energia" progress={0.7}/>
                     <TopicWithProgress title="Felicidade" progress={0.5}/>
@@ -182,6 +197,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         overflow: 'hidden',
         marginTop: 10,
+        marginBottom:10,
         borderWidth: 1,  
         borderColor: 'white',  
         padding: 3, 
@@ -198,10 +214,31 @@ const styles = StyleSheet.create({
         fontSize: 16,
         alignSelf:'flex-start',
         marginLeft: 12,
-        marginTop: 5,
-        marginBottom: -15,
+        marginTop: -15,
+        marginBottom: -25,
     },
     topicContainer2: {
-        width: '100%',
+        width: '90%',
     },
+    //============================================================
+    levelContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft:15,
+        marginTop:-22,
+      },
+      level: {
+        height:512/15,
+        width: 443.5/15,
+        position:'absolute',
+      },
+      text: {
+        alignContent: 'center',
+        fontSize: 15,
+        color: '#1A7EF1',
+        fontFamily: 'Poppins_700Bold',
+        top: 1.5,
+      },
+    
 });

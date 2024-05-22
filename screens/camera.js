@@ -4,6 +4,8 @@ import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 
+const focus = require('../assets/focus.png');
+
 export default function TirarFoto() {
   const camRef = useRef(null);
   const [facing, setFacing] = useState('back');
@@ -58,14 +60,11 @@ export default function TirarFoto() {
 
   return (
     <SafeAreaView style={styles.container}>
-      
       <CameraView style={{ flex: 1 }} facing={facing} ref={camRef}>
-        <Text style={styles.text1}>
-          Alimente o
-        </Text>
-        <Text style={styles.text2}>
-          Dino
-        </Text>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.text}>Alimente o{'\n'}Dino</Text>
+          <Image source={focus} style={styles.focus}/>
+        </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={takePicture}>
             <FontAwesome name="camera" size={23} color="#fff" />
@@ -99,6 +98,12 @@ const styles = StyleSheet.create({
     margin: 20,
     alignSelf: 'center',
   },
+  focus:{
+    width: 280,
+    height: 280,
+    alignSelf: 'center',
+    marginTop: '15%',
+  },
   button: {
     alignSelf: 'flex-end',
     alignItems: 'center',
@@ -127,17 +132,11 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 20,
   },
-  text1: {
+  text: {
     fontSize: 34,
     color: 'white',
     fontFamily:'Poppins_700Bold',
     marginLeft:'8%',
     marginTop:'8%',
-  },
-  text2: {
-    fontSize: 34,
-    color: 'white',
-    fontFamily:'Poppins_700Bold',
-    marginLeft:'8%',
   },
 });

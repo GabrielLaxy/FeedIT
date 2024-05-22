@@ -96,3 +96,23 @@ const styles = StyleSheet.create({
 
     },
 });
+
+const stylesLevel = StyleSheet.create({
+    levelContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    level: {
+      height:512/4,
+      width: 443.5/4,
+      position:'absolute',
+    },
+    text: {
+      alignContent: 'center',
+      fontSize: 50,
+      color: '#1A7EF1',
+      fontFamily: 'Poppins_700Bold',
+      top: 5,
+    },
+  });
