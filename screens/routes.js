@@ -7,7 +7,7 @@ import { Config, Exercicios, Home, Tasks, Camera } from '../screens';
 import { NavigationContainer} from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins'
+import { useFonts, Poppins_700Bold, Poppins_500Medium } from '@expo-google-fonts/poppins'
 import BackgroundMusic from '../backend/music.js';
 
 //import icons
@@ -169,7 +169,7 @@ function TabGroup() {
 
 export default function Navigation(){
   const [fontLoaded] = useFonts({
-    Poppins_700Bold,
+    Poppins_700Bold, Poppins_500Medium,
   });
   
   if (!fontLoaded){
