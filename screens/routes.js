@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import TelaLogin from './telaLogin.js';
 import TelaCadastro from './telaCadastro.js';
@@ -8,8 +8,8 @@ import { NavigationContainer} from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts, Poppins_700Bold, Poppins_500Medium } from '@expo-google-fonts/poppins'
-import BackgroundMusic from '../backend/music.js';
-
+import { useIsFocused } from '@react-navigation/native';
+import { playBackgroundMusic, stopBackgroundMusic } from '../backend/music.js';
 //import icons
 import { AntDesign } from '@expo/vector-icons';
 //<AntDesign name="home" size={24} color="black" />
@@ -56,11 +56,20 @@ function StackGroup(){
         <Stack.Screen name="login" options={{ headerShown: false }} component={TelaLogin} />
         <Stack.Screen name="cadastro" options={{ headerShown: false }} component={TelaCadastro} />
         <Stack.Screen name="escolhaNome" options={{ headerShown: false }} component={EscolhaNome} />
-        <Stack.Screen name='TabGroup' options={{ headerShown: false }} component={TabGroup}/>
+        <Stack.Screen name="TabGroup" options={{ headerShown: false }} component={TabGroup}/>
     </Stack.Navigator>
   );
 }
 function TabGroup() {
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      playBackgroundMusic();
+    } else {
+      stopBackgroundMusic();
+    }
+  }, [isFocused]);
   return (
       <Tab.Navigator screenOptions={screenOptions} initialRouteName= 'Home'>
         <Tab.Screen name='Tasks' component={Tasks} options={{
@@ -179,6 +188,7 @@ export default function Navigation(){
       <NavigationContainer>
           {/* <StackGroup/> */}
           {/* <BackgroundMusic/> */}
+
           <TabGroup/>
       </NavigationContainer>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, Image, ImageBackground, StyleSheet, Dimensions, Animated, TouchableOpacity, Easing } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import LottieView from 'lottie-react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -8,6 +9,7 @@ const windowHeight = Dimensions.get('window').height;
 const backgroundImage = require('../assets/home_background.png');
 const dino_lv1 = require('../assets/dino_lv1.png');
 const shadow = require('../assets/sombra.png');
+const dinoAnimation = require('../assets/dinoAnimation.json');
 
 const nivel = require('../assets/level.png');
 
@@ -107,7 +109,7 @@ export default function Home() {
             <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.imageBackground}>
                 
                 <Image source={shadow} style={styles.shadow}/>
-                <Image source={dino_lv1} style={styles.dino} />
+                <LottieView source={dinoAnimation} autoPlay loop style={styles.dino} />
                 <Animated.View style={panelStyle}>
                     <Level levelNumber={1}/>
                     <TopicWithProgress2 progress={0.6}/>
@@ -136,10 +138,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     dino:{
-        width: 220,
-        height:220,
+        width: 320,
+        height:320,
         position: 'absolute',
-        bottom:120,
+        bottom:70,
     },
     shadow:{
         width:441,

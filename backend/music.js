@@ -1,26 +1,28 @@
-import React, { useEffect } from 'react';
 import { Audio } from 'expo-av';
 
-const BackgroundMusic = () => {
-  useEffect(() => {
-    const playBackgroundMusic = async () => {
-      const backgroundMusic = new Audio.Sound();
-      try {
-        await backgroundMusic.loadAsync(require('./assets/musica_teste.mp3'));
-        await backgroundMusic.playAsync();
-      } catch (error) {
-        console.error('Erro ao reproduzir música de fundo:', error);
-      }
-    };
+let backgroundMusic;
 
-    playBackgroundMusic();
-
-    return () => {
-      backgroundMusic.unloadAsync();
-    };
-  }, []);
-
-  return null; 
+export const playBackgroundMusic = async () => {
+  if (!backgroundMusic) {
+    backgroundMusic = new Audio.Sound();
+    try {
+      await backgroundMusic.loadAsync(require('../assets/LostInTheWoods.mp3'), { isLooping: true });
+      await backgroundMusic.playAsync();
+    } catch (error) {
+      console.error('Erro ao reproduzir música de fundo:', error);
+    }
+  }
 };
 
-export default BackgroundMusic;
+export const stopBackgroundMusic = async () => {
+  if (backgroundMusic) {
+    try {
+      await backgroundMusic.stopAsync();
+      await backgroundMusic.unloadAsync();
+    } catch (error) {
+      console.error('Erro ao parar música de fundo:', error);
+    } finally {
+      backgroundMusic = null;
+    }
+  }
+};

@@ -10,6 +10,7 @@ npm install react-hook-form
 npm install @hookform/resolvers yup
 npx expo install expo-camera@latest
 npx expo install expo-sensors
+npx expo install lottie-react-native
 
 
 comando para atualizar as dependencias 
