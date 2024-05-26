@@ -23,7 +23,7 @@ export default function TelaLogin({ navigation }) {
 
     // Função para verificação de login
     function verificaLogin(data) {
-        navigation.navigate('cadastro');
+        navigation.navigate('TabGroup');
     }
 
     // Verificação de fontes carregadas deve ser a última parte antes do retorno JSX

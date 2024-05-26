@@ -1,78 +1,74 @@
-import google.generativeai as genai
-import PIL.Image
-import dotenv
-import os
-import base64
-import binascii
-from io import BytesIO
-from fastapi import FastAPI, Request
-import httpx
+# import base64
+# import io
+# from fastapi import FastAPI, HTTPException
+# from pydantic import BaseModel
+# from PIL import Image
+# import google.generativeai as genai
+# import dotenv
+# import os
 
-app = FastAPI()
+# from fastapi.middleware.cors import CORSMiddleware
 
-dotenv.load_dotenv(dotenv.find_dotenv())
-genai.configure(api_key=os.getenv("API_KEY"))
+# # Carregar variáveis de ambiente
+# dotenv.load_dotenv()
 
-def redimensiona_img(img):
-    larg, alt = img.size
-    nova_larg = larg // 2
-    nova_alt = alt // 2
-    imagem_redimensionada = img.resize((nova_larg, nova_alt))
-    return imagem_redimensionada
+# # Configurar a chave da API do Google
+# genai.configure(api_key=os.getenv("API_KEY"))
 
-def verifica_e_redimensiona(img):
-    larg, alt = img.size
-    if larg >= 3600 or alt >= 2000:
-        return redimensiona_img(img)
-    else:
-        return img
+# app = FastAPI()
 
-async def enviar_resposta_para_servidor(resposta):
-    url = "/receber-resposta" 
-    dados = {"resposta": resposta}
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.post(url, json=dados)
-            response.raise_for_status()
-            print("Resposta enviada com sucesso para o servidor.")
-        except httpx.HTTPStatusError as http_err:
-            print(f"HTTP error occurred: {http_err.response.status_code} - {http_err.response.text}")
-        except Exception as err:
-            print(f"Other error occurred: {err}")
+# # Configurar middleware CORS
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],  # Ajuste conforme necessário
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
-@app.post("/enviar-imagem")
-async def receber_imagem(request: Request):
-    dados = await request.json()
-    imagem_base64 = dados.get('imagem')
+# class ImageData(BaseModel):
+#     image_base64: str
 
-    if isinstance(imagem_base64, str) and imagem_base64.startswith('data:image'):
-        print("Imagem recebida e validada.")
-        try:
-            header, imagem_base64 = imagem_base64.split(',', 1)
-            imagem_decodificada = base64.b64decode(imagem_base64)
-            
-            imagem = PIL.Image.open(BytesIO(imagem_decodificada))
+# def redimensiona_img(img):
+#     larg, alt = img.size
+#     nova_larg = larg // 2
+#     nova_alt = alt // 2
+#     imagem_redimensionada = img.resize((nova_larg, nova_alt))
+#     return imagem_redimensionada
 
-            img_processada = verifica_e_redimensiona(imagem)
+# def verifica_e_redimensiona(img):
+#     larg, alt = img.size
+#     if larg >= 3600 or alt >= 2000:
+#         return redimensiona_img(img)
+#     else:
+#         return img
 
-            buffered = BytesIO()
-            img_processada.save(buffered, format="PNG")
-            img_processada_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+# @app.post("/process-image")
+# async def process_image(data: ImageData):
+#     try:
+#         # Decodificar a imagem base64
+#         image_data = data.image_base64
+#         img = Image.open(io.BytesIO(base64.b64decode(image_data)))  # Decodificação e abertura da imagem
 
-            model = genai.GenerativeModel('gemini-pro-vision')
-            resposta = model.generate_content(["Write the classification of the food in the image(Carbohydrates,Fruits,candy, Vegetables, Dairy, Proteins, Nuts, Sweets, Sausages), just 1 word, if there are no food in the image just write nfound", img_processada_base64])
-            
-            resposta_string = resposta.text
-            
-            await enviar_resposta_para_servidor(resposta_string)
-            
-            return resposta_string
-        
-        except binascii.Error as e:
-            print(e)
-            return {"erro": "Erro ao decodificar a imagem base64"}
-        except Exception as e:
-            print(e)
-            return {"erro": str(e)}
-    else:
-        return {"erro": "Formato de imagem inválido"}
+#         # Verificar e redimensionar a imagem se necessário
+#         img_processada = verifica_e_redimensiona(img)
+
+#         # Salvar a imagem processada em um buffer
+#         buffer = io.BytesIO()
+#         img_processada.save(buffer, format="JPEG")
+#         buffer.seek(0)
+
+#         # Integrar com a API do Google
+#         model = genai.GenerativeModel('gemini-pro-vision')
+#         resposta = model.generate_content([
+#             "Write the classification of the food in the image(carbo,protein,candy, fruit or vegetable), just 1 word, if there ar no food in the image just write nfound",
+#             buffer.getvalue()  # Obter os bytes da imagem processada
+#         ])
+
+#         return {"classification": resposta.text}
+#     except Exception as e:
+#         raise HTTPException(status_code=400, detail=str(e))
+
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="127.0.0.1", port=8000)

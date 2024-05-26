@@ -23,7 +23,7 @@ export default function TelaCadastro({ navigation }){
     }
 
     return (
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.container}>
             <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('login')}>
                 <Image source={require('../assets/SetaCadastro.png')} />
@@ -101,6 +101,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
+    },
+    scrollContainer: {
+        flexGrow: 1,
     },
     containerCadastro:{
         width: '100%',

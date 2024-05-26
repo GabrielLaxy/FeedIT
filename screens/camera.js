@@ -38,25 +38,28 @@ export default function TirarFoto() {
 
   async function takePicture() {
     if (camRef.current) {
-      const photo = await camRef.current.takePictureAsync({base64: true});
+      const photo = await camRef.current.takePictureAsync({ base64: true });
       setCapturedPhoto(photo.uri);
       setOpen(true);
-      enviarParaOBack(photo);
+      const teste = 'oi';
+      sendString(teste);  // Passando o objeto photo completo
     }
   }
-
-  async function enviarParaOBack(imagemBase64) {
-    const url = '/enviar-imagem';
   
-    try {
-      const response = await axios.post(url, {
-        imagem: imagemBase64
-      });
-      console.log('Imagem enviada com sucesso:', response.data);
-    } catch (error) {
-      console.error('Erro ao enviar imagem:', error);
-    }
-  }
+  // Função para enviar a string base64 para o backend
+  // async function sendString(photo) {
+  //   try {
+  //     const response = await axios.post('http://127.0.0.1:8000/funciona', {
+  //       image_base64: photo  // Extraindo a string base64 do objeto photo .base64
+  //     });
+  //     console.log('Received from FastAPI:', response.data);
+  //   } catch (error) {
+  //     console.error('Error sending string:', error);
+  //   }
+  // }
+
+
+
 
   return (
     <SafeAreaView style={styles.container}>
