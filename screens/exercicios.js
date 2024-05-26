@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import {View, Text, Image, StyleSheet, Dimensions, ImageBackground, Platform} from 'react-native';
 import { Pedometer } from 'expo-sensors';
+import LottieView from 'lottie-react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -10,6 +11,7 @@ const backgroundImageExercicio = require('../assets/exercicio_background.png');
 const dino_lv1 = require('../assets/dino_lv1.png');
 const shadow = require('../assets/sombra.png');
 const elipse = require('../assets/elipse.png');
+const dinoAnimation = require('../assets/dinoAnimation.json');
 
 export default function Exercicos(){
     const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
@@ -17,24 +19,25 @@ export default function Exercicos(){
     const [currentStepCount, setCurrentStepCount] = useState(0);
   
     const subscribe = async () => {
-      const isAvailable = await Pedometer.isAvailableAsync();
-      setIsPedometerAvailable(String(isAvailable));
-  
-      if (isAvailable) {
-        const end = new Date();
-        const start = new Date();
-        start.setDate(end.getDate() - 1);
-  
-        const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
-        if (pastStepCountResult) {
-          setPastStepCount(pastStepCountResult.steps);
+        const isAvailable = await Pedometer.isAvailableAsync();
+        setIsPedometerAvailable(String(isAvailable));
+      
+        if (isAvailable) {
+          const end = new Date();
+          const start = new Date();
+          start.setDate(end.getDate() - 1);
+      
+          const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
+          if (pastStepCountResult) {
+            setPastStepCount(pastStepCountResult.steps);
+          }
+      
+          return Pedometer.watchStepCount(result => {
+            setCurrentStepCount(result.steps);
+          });
         }
-  
-        return Pedometer.watchStepCount(result => {
-          setCurrentStepCount(result.steps);
-        });
-      }
-    };
+      };
+      
   
     useEffect(() => {
         const initSubscription = async () => {
@@ -75,7 +78,7 @@ export default function Exercicos(){
                     </Text>
                 </View>
                 <Image source={shadow} style={styles.shadow}/>
-                <Image source={dino_lv1} style={styles.dino} />
+                <LottieView source={dinoAnimation} autoPlay loop style={styles.dino} />
             </ImageBackground>
         </View>
     );
@@ -129,10 +132,10 @@ const styles = StyleSheet.create({
         top: '60%',
     },
     dino:{
-        width: 220,
-        height:220,
+        width: 320,
+        height:320,
         position: 'absolute',
-        bottom:80.5,
+        bottom:30.5,
     },
     shadow:{
         width:441,

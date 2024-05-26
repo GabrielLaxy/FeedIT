@@ -7,7 +7,6 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const backgroundImage = require('../assets/home_background.png');
-const dino_lv1 = require('../assets/dino_lv1.png');
 const shadow = require('../assets/sombra.png');
 const dinoAnimation = require('../assets/dinoAnimation.json');
 
