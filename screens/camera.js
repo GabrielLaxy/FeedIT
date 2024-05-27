@@ -28,9 +28,9 @@ export default function TirarFoto() {
   if (!permission.granted) {
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: 'center' }}>Por favor, precisamos de permição de acesso a sua câmera</Text>
+        <Text style={{ textAlign: 'center', padding:10, fontFamily:'Poppins_700Bold' }}>Por favor, precisamos de permissão de acesso a sua câmera</Text>
         <TouchableOpacity onPress={requestPermission}>
-          <Text style={styles.buttonText}>Grant Permission</Text>
+          <Text style={styles.buttonText}>Conceder Permissão</Text>
         </TouchableOpacity>
       </View>
     );
@@ -41,22 +41,20 @@ export default function TirarFoto() {
       const photo = await camRef.current.takePictureAsync({ base64: true });
       setCapturedPhoto(photo.uri);
       setOpen(true);
-      const teste = 'oi';
-      sendString(teste);  // Passando o objeto photo completo
+      sendString(photo);
     }
   }
-  
-  // Função para enviar a string base64 para o backend
-  // async function sendString(photo) {
-  //   try {
-  //     const response = await axios.post('http://127.0.0.1:8000/funciona', {
-  //       image_base64: photo  // Extraindo a string base64 do objeto photo .base64
-  //     });
-  //     console.log('Received from FastAPI:', response.data);
-  //   } catch (error) {
-  //     console.error('Error sending string:', error);
-  //   }
-  // }
+
+  async function sendString(photo) {
+    try {
+      const response = await axios.post('http://10.0.2.2:8000/process-image', {
+        image_base64: photo.base64
+      });
+      console.log('Received from FastAPI:', response.data);
+    } catch (error) {
+      console.error('Error sending string:', error);
+    }
+  }
 
 
 

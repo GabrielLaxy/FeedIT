@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "projeto_integrador",
-    "slug": "projeto_integrador",
+    "name": "FeedIt",
+    "slug": "FeedIt",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

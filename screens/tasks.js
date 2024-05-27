@@ -32,7 +32,7 @@ export default function Tasks() {
                 <TopicWithProgress title="Carnes" progress={0.7}/>
                 <TopicWithProgress title="Carboidratos" progress={0.5}/>
                 <TopicWithProgress title="Frutas" progress={0.8}/>
-                <TopicWithProgress title="Doces" progress={0.3}/>
+                <TopicWithProgress title="Legumes" progress={0.3}/>
             </ImageBackground>
         </View>
     );
@@ -67,10 +67,9 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontFamily: "Poppins_700Bold",
         fontSize: 25,
-        textAlign: 'left',
         marginTop: 5,
-        marginLeft: 0,
-        marginBottom: -20,
+        marginLeft: 5,
+        marginBottom: -18,
     },
     topicContainer: {
         width: '100%',
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
     },
     progressBar: {
         height: '100%',
-        backgroundColor: '#26A910',
+        backgroundColor: '#32B708',
         borderRadius: 40,  
 
     },
