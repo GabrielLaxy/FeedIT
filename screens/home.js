@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     },
     progressBar: {
         height: '100%',
-        backgroundColor: '#26A910',
+        backgroundColor: '#32B708',
         borderRadius: 40,  
 
     },

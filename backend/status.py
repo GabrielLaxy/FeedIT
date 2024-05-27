@@ -13,6 +13,8 @@ class Status:
         self.decaimento_ativo = True
         self.iniciar_decaimento()
 
+        #contar nivel
+
     def aumentar_status(self):
         for chave in self.dados:
             if chave != 'xp':
