@@ -3,6 +3,7 @@ import  { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { AntDesign } from '@expo/vector-icons';
 import * as yup from 'yup';
 
 
@@ -25,7 +26,7 @@ export default function EscolhaNome({navigation}){
         <ScrollView>
         <View style={styles.container}>
             <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('cadastro')}>
-                <Image source={require('../assets/SetaCadastro.png')}></Image>
+                <AntDesign name="arrowleft" size={30} color="#88C200" />
             </TouchableOpacity>
         
             <Image source={require('../assets/circDino.png')} style={styles.imagem}></Image>
