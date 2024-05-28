@@ -3,13 +3,13 @@ import  { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, KeyboardAvoidingView, Linking, TouchableOpacity, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { AntDesign } from '@expo/vector-icons';
 import * as yup from 'yup';
 
 export default function TelaCadastro({ navigation }){
 
     const schema = yup.object({
         nome: yup.string().required("Informe seu nome"),
-        responsavel: yup.string().required("Informe seu responsável"),
         email: yup.string().email("Email inválido").required("Informe seu e-mail"),
         senha: yup.string().min(7, "Deve conter 6 letras e um número no mínimo").required("Informe sua senha")
     });
@@ -26,7 +26,7 @@ export default function TelaCadastro({ navigation }){
         <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.container}>
             <TouchableOpacity style={styles.btnVoltar} onPress={() => navigation.push('login')}>
-                <Image source={require('../assets/SetaCadastro.png')} />
+                <AntDesign name="arrowleft" size={30} color="#88C200" />
             </TouchableOpacity>
             <Text style={styles.titulo}>FeedIt</Text>
             <Image source={require('../assets/circDino.png')} style={styles.imagem} />
@@ -43,20 +43,6 @@ export default function TelaCadastro({ navigation }){
                 {errors.nome && <Text style={styles.erroMensagem}>{errors.nome?.message}</Text>}
                 </View>
             </View>
-
-            <View style={styles.containerCadastro}>
-                <Text style={styles.text}>Responsável:</Text>
-                <Controller
-                    control={control}
-                    name='responsavel'
-                    render={({ field: { onChange, value } }) => (
-                        <TextInput style={[styles.textInput, { paddingLeft: 15 }]} onChangeText={onChange} value={value} />
-                    )}
-                />
-                <View style={styles.erro}>
-                {errors.responsavel && <Text style={styles.erroMensagem}>{errors.responsavel?.message}</Text>}
-                </View>
-            </View> 
 
             <View style={styles.containerCadastro}>
             <Text style={styles.text}>E-mail:</Text>
