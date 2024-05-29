@@ -6,11 +6,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TelaLogin from './telaLogin.js';
 import TelaCadastro from './telaCadastro.js';
 import EscolhaNome from './escolhaNome.js';
-import { Config, Exercicios, Home, Tasks, Camera, Perfil } from '../screens'; // Ajuste os caminhos conforme necessário
+import { Config, Exercicios, Home, Tasks, Camera, Perfil } from '../screens';
 import { useFonts, Poppins_700Bold, Poppins_500Medium } from '@expo-google-fonts/poppins';
 import { useIsFocused } from '@react-navigation/native';
 import { playBackgroundMusic, stopBackgroundMusic } from '../backend/music.js';
 import { AntDesign, Feather, FontAwesome5 } from '@expo/vector-icons';
+import Ajuda_foto from './ajuda_foto.js';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -104,6 +105,7 @@ function StackGroup() {
       <Stack.Screen name="cadastro" options={{ headerShown: false }} component={TelaCadastro} />
       <Stack.Screen name="escolhaNome" options={{ headerShown: false }} component={EscolhaNome} />
       <Stack.Screen name="TabGroup" options={{ headerShown: false }} component={TabGroup} />
+      <Stack.Screen name="Ajuda_foto" component={Ajuda_foto}/>
       <Stack.Screen name="Perfil" component={Perfil} options={{
           headerStyle: {
             backgroundColor: 'white',

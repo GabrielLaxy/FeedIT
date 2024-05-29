@@ -1,12 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Modal, Image } from 'react-native';
 import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
+
 import axios from 'axios';
 
 const focus = require('../assets/focus.png');
 
 export default function TirarFoto() {
+
+  const navigation = useNavigation();
+
+
   const camRef = useRef(null);
   const [facing, setFacing] = useState('back');
   const [permission, requestPermission] = useCameraPermissions();
@@ -63,7 +70,9 @@ export default function TirarFoto() {
     <SafeAreaView style={styles.container}>
       <CameraView style={{ flex: 1 }} facing={facing} ref={camRef}>
         <View style={{ flex: 1 }}>
-          <Text style={styles.text}>Alimente o{'\n'}Dino</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Ajuda_foto')}>
+          <Entypo name="help-with-circle" size={30} color="white" style={styles.help} />
+          </TouchableOpacity>
           <Image source={focus} style={styles.focus}/>
         </View>
         <View style={styles.buttonContainer}>
@@ -92,6 +101,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  help: {
+    marginTop: '10%',
+    marginLeft: '85%',
+  },
   buttonContainer: {
     flex: 1,
     backgroundColor: 'transparent',
@@ -103,7 +116,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
     alignSelf: 'center',
-    marginTop: '15%',
+    marginTop: '25%',
   },
   button: {
     alignSelf: 'flex-end',
