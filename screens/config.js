@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Linking, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import DashedLine from 'react-native-dashed-line';
 import Slider from '@react-native-community/slider';
 import { Entypo } from '@expo/vector-icons';
-
-const volume = 0.5; // Definindo um valor inicial para o volume
+import { setBackgroundMusicVolume } from '../backend/music'; 
 
 export default function Config() {
   const navigation = useNavigation();
+  const [volume, setVolume] = useState(0.5); 
+
+  const handleVolumeChange = async (value) => {
+    setVolume(value);
+    await setBackgroundMusicVolume(value);
+  };
 
   const emailSuporte = () => {
     Alert.alert(
@@ -44,9 +49,7 @@ export default function Config() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>
-        Configurações
-      </Text>
+      <Text style={styles.titulo}>Configurações</Text>
       <View style={{ padding: '5%' }}>
         <DashedLine dashLength={5} dashThickness={2} dashGap={10} dashColor='#5C4B4B' />
       </View>
@@ -59,6 +62,7 @@ export default function Config() {
         minimumTrackTintColor="#26A910"
         maximumTrackTintColor="#D8D8D8"
         thumbTintColor='#3FC600'
+        onValueChange={handleVolumeChange} // Adiciona o manipulador de eventos
       />
       <TouchableOpacity style={styles.topicosContainers} onPress={() => navigation.navigate('Perfil')}>
         <Text style={styles.topicos}>Perfil</Text>
@@ -103,7 +107,7 @@ const styles = StyleSheet.create({
     color: "#5C4B4B",
     fontFamily: "Poppins_700Bold",
     fontSize: 25,
-    marginTop: 20,
+    marginTop: 20,Perfill: true,
     textDecorationLine: 'underline',
     paddingLeft: 30,
   },

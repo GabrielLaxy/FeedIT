@@ -54,7 +54,7 @@ export default function TirarFoto() {
 
   async function sendString(photo) {
     try {
-      const response = await axios.post('http://10.0.2.2:8000/process-image', {
+      const response = await axios.post('https://e3fa-177-73-181-130.ngrok-free.app/process-image', {
         image_base64: photo.base64
       });
       console.log('Received from FastAPI:', response.data);

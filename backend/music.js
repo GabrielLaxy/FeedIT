@@ -26,3 +26,13 @@ export const stopBackgroundMusic = async () => {
     }
   }
 };
+
+export const setBackgroundMusicVolume = async (volume) => {
+  if (backgroundMusic) {
+    try {
+      await backgroundMusic.setVolumeAsync(volume);
+    } catch (error) {
+      console.error('Erro ao ajustar o volume da música de fundo:', error);
+    }
+  }
+};
