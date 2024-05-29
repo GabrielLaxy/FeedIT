@@ -105,7 +105,18 @@ function StackGroup() {
       <Stack.Screen name="cadastro" options={{ headerShown: false }} component={TelaCadastro} />
       <Stack.Screen name="escolhaNome" options={{ headerShown: false }} component={EscolhaNome} />
       <Stack.Screen name="TabGroup" options={{ headerShown: false }} component={TabGroup} />
-      <Stack.Screen name="Ajuda_foto" component={Ajuda_foto}/>
+      <Stack.Screen name="Ajuda_foto" component={Ajuda_foto} options={{
+        headerStyles:{
+          backgroundColor: 'white',
+        },
+        headerTintColor: '#5C4B4B',
+        headerTitleAlign: 'center',
+        headerTitle: () => (
+          <View>
+            <Text style={{ color: '#5C4B4B', fontSize: 25, fontFamily: 'Poppins_700Bold', alignItems: 'center', justifyContent: 'center', marginTop: '10%' }}>Ajuda</Text>
+          </View>
+        ),
+      }}/>
       <Stack.Screen name="Perfil" component={Perfil} options={{
           headerStyle: {
             backgroundColor: 'white',
