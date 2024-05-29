@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-const foto = require('../assets/circDino.png');
+import { View, Text, StyleSheet, Image , FlatList} from 'react-native';
 
 export default function TutorialScreen() {
   return (

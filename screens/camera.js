@@ -4,7 +4,6 @@ import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-
 import axios from 'axios';
 
 const focus = require('../assets/focus.png');
@@ -85,10 +84,10 @@ export default function TirarFoto() {
       {capturedPhoto && (
         <Modal animationType="slide" transparent={false} visible={open}>
           <View style={styles.modalContainer}>
+          <Image style={styles.capturedImage} source={{ uri: capturedPhoto }} />
             <TouchableOpacity style={styles.closeButton} onPress={() => setOpen(false)}>
               <FontAwesome name="window-close" size={50} color="#ff0000" />
             </TouchableOpacity>
-            <Image style={styles.capturedImage} source={{ uri: capturedPhoto }} />
           </View>
         </Modal>
       )}
@@ -136,15 +135,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 20,
+    backgroundColor: '#FBFEF4',
   },
   closeButton: {
     margin: 10,
   },
   capturedImage: {
-    width: '100%',
-    height: 300,
-    borderRadius: 20,
+    width: '90%',
+    height: 400,
+    borderRadius: 40,
+    borderColor: '#32B708',
+    borderWidth: 10,
   },
   text: {
     fontSize: 34,
