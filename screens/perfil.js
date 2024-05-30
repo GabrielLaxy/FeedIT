@@ -5,7 +5,6 @@ import {
 	Poppins_700Bold,
 	Poppins_500Medium,
 } from '@expo-google-fonts/poppins';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import DashedLine from 'react-native-dashed-line';
 
 const circDino = require('../assets/circDino.png');
@@ -31,7 +30,7 @@ export default function Perfil({}) {
 		return null;
 	}
 	return (
-		<SafeAreaView style={styles.safeContainer}>
+		<View style={styles.container}>
 			<TouchableOpacity
 				style={styles.btnVoltar}
 				onPress={() => navigation.push('config')}
@@ -39,7 +38,7 @@ export default function Perfil({}) {
 				<Image source={SetaCadastro}></Image>
 			</TouchableOpacity>
 			<Text style={styles.title}>Perfil</Text>
-			<View style={{ padding: '3%' }}>
+			<View style={{padding: '5%'} }>
 				<DashedLine
 					dashLength={5}
 					dashThickness={2}
@@ -48,30 +47,30 @@ export default function Perfil({}) {
 				/>
 			</View>
 			<Image source={circDino} style={styles.imagem}></Image>
-			<Text style={styles.textName}>DINO</Text>
-			<Level LevelNumber={1} />
-			<Text style={styles.textEmail}>Email:</Text>
-		</SafeAreaView>
+			<Text style={styles.textName}>DINO</Text> 
+			<Level LevelNumber={1}/>
+			<View style={styles.email}>
+				<Text style={styles.textEmail}>Email:</Text>
+				<Text style={styles.textEmailUser}>email do dino</Text>
+			</View>
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	safeContainer: {
-		flew: 1,
-		alignItems: 'center',
-	},
 	container: {
 		flex: 1,
 		backgroundColor: '#FCFFF5',
 		alignItems: 'center',
-		justifyContent: 'space-between',
+		marginTop: '11%',
+		marginBottom: '30%'
 	},
 	btnVoltar: {
-		marginTop: '12%',
+		marginTop: '2%',
 		marginLeft: '-78%',
 	},
 	title: {
-		marginTop: '-7%',
+		marginTop: '-8%',
 		fontSize: 34,
 		color: '#5C4B4B',
 		fontFamily: 'Poppins_700Bold',
@@ -82,38 +81,50 @@ const styles = StyleSheet.create({
 		marginLeft: '-40%',
 	},
 	textName: {
-		marginLeft: '40%',
-		marginTop: '-40%',
+		marginLeft: '37%',
+		marginTop: '-38%',
 		fontSize: 25,
 		color: '#5C4B4B',
 		fontFamily: 'Poppins_700Bold',
 	},
-	levelDino: {
-		marginTop: '',
+	email: {
+		marginBottom: '70%',
 	},
-	textEmail: {
-		marginTop: '40%',
-		marginLeft: '-45%',
+	textEmail:{
+		marginLeft: '-10%',
 		fontSize: 25,
 		color: '#5C4B4B',
 		fontFamily: 'Poppins_700Bold',
 	},
+	textEmailUser: {
+		marginTop: '2%',
+		fontSize: 25,
+		color: '#5C4B4B',
+		fontFamily: 'Poppins_700Bold',
+	},
+	campo: {
+		background: '#BCD8B3',
+		borderRadius: 50,
+		width: '100px',
+		height: '100px',
+	},
+
 
 	levelContainer: {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginLeft: 15,
-		marginTop: -22,
+		marginLeft: 150,
+		marginTop: -110,
 	},
 	level: {
-		height: 512 / 5,
-		width: 443.5 / 5,
+		height: 512 / 6,
+		width: 443.5 / 6,
 		position: 'absolute',
 	},
 	text: {
 		alignContent: 'center',
-		fontSize: 30,
+		fontSize: 25,
 		color: '#1A7EF1',
 		fontFamily: 'Poppins_700Bold',
 		top: 1.5,
