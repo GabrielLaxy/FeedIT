@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
+import Status from '../status'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -66,6 +67,9 @@ const TopicWithProgress2 = ({ title, progress }) => {
 };
 
 export default function Home() {
+
+	const [status, setStatus] = useState(new Status({}));
+
 	const panelYPosition = useRef(
 		new Animated.Value(-windowHeight / 4.3)
 	).current;
@@ -123,12 +127,12 @@ export default function Home() {
 				<Image source={shadow} style={styles.shadow} />
 				<LottieView source={dinoAnimation} autoPlay loop style={styles.dino} />
 				<Animated.View style={panelStyle}>
-					<Level levelNumber={1} />
-					<TopicWithProgress2 progress={0.6} />
-					<TopicWithProgress title="Energia" progress={0.7} />
-					<TopicWithProgress title="Felicidade" progress={0.5} />
-					<TopicWithProgress title="Alimentação" progress={0.8} />
-					<TopicWithProgress title="Força" progress={0.3} />
+					<Level levelNumber={0} />
+					<TopicWithProgress2 progress={status.xp} />
+					<TopicWithProgress title="Energia" progress={status.energia/100} />
+					<TopicWithProgress title="Felicidade" progress={status.felicidade/100} />
+					<TopicWithProgress title="Alimentação" progress={status.alimentacao/100} />
+					<TopicWithProgress title="Força" progress={status.forca/100} />
 				</Animated.View>
 				<TouchableOpacity onPress={togglePanel} style={buttonStyle}>
 					<AntDesign

@@ -11,6 +11,7 @@ import {
 import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import Status from '../status.js';
 
 import axios from 'axios';
 
@@ -65,15 +66,23 @@ export default function TirarFoto() {
 		}
 	}
 
-	async function sendString(photo) {
+	async function sendString(photo, status) {
 		try {
 			const response = await axios.post(
-				' https://da1b-2804-14c-bf3a-8061-e188-eb33-47b8-b228.ngrok-free.app/process-image',
+				'https://deb9-2804-14c-bf3a-8061-c515-6a74-7328-dcf1.ngrok-free.app/process-image',
 				{
 					image_base64: photo.base64,
 				}
 			);
 			console.log('Received from FastAPI:', response.data);
+
+			if (response.data && response.data.status) {
+				const updatedData = {
+					...response.data.status,
+					classificacao: response.data.classification,
+				};
+				status.update(updatedData);
+			}
 		} catch (error) {
 			console.error('Error sending string:', error);
 		}
