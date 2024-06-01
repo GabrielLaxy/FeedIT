@@ -181,9 +181,21 @@ function TabGroup() {
 function StackGroup() {
 	return (
 		<Stack.Navigator>
-			{/* <Stack.Screen name="login" options={{ headerShown: false }} component={TelaLogin} />
-      <Stack.Screen name="cadastro" options={{ headerShown: false }} component={TelaCadastro} />
-      <Stack.Screen name="escolhaNome" options={{ headerShown: false }} component={EscolhaNome} /> */}
+			{/* <Stack.Screen
+				name="login"
+				options={{ headerShown: false }}
+				component={TelaLogin}
+			/>
+			<Stack.Screen
+				name="cadastro"
+				options={{ headerShown: false }}
+				component={TelaCadastro}
+			/>
+			<Stack.Screen
+				name="escolhaNome"
+				options={{ headerShown: false }}
+				component={EscolhaNome}
+			/> */}
 			<Stack.Screen
 				name="TabGroup"
 				options={{ headerShown: false }}
@@ -263,7 +275,6 @@ export default function Navigation() {
 
 	return (
 		<NavigationContainer>
-			{/* <TabGroup/> */}
 			<StackGroup />
 		</NavigationContainer>
 	);

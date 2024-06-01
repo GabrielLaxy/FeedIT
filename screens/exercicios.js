@@ -78,7 +78,7 @@ export default function Exercicos() {
 				<View style={styles.centeredView}>
 					<Image source={elipse} style={styles.elipse} />
 					<Text style={styles.km}>
-						{Platform.OS === 'ios' ? pastStepCount : currentStepCount}
+						{Platform.OS === 'ios' ? pastStepCount/1000 : currentStepCount/1000}
 					</Text>
 					<Text style={styles.km2}>Km</Text>
 				</View>

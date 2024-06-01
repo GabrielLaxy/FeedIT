@@ -31,27 +31,25 @@ export default function Perfil({}) {
 	}
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity
-				style={styles.btnVoltar}
-				onPress={() => navigation.push('config')}
-			>
-				<Image source={SetaCadastro}></Image>
-			</TouchableOpacity>
-			<Text style={styles.title}>Perfil</Text>
-			<View style={{padding: '5%'} }>
-				<DashedLine
-					dashLength={5}
-					dashThickness={2}
-					dashGap={10}
-					dashColor="#5C4B4B"
-				/>
+			<View style={styles.rowContainer}>
+				<Image source={circDino} style={styles.circDino}></Image>
+				<View style={styles.columnContainer}>
+					<Text style={styles.name}>DINO</Text>
+					<Level LevelNumber={5} />
+				</View>
 			</View>
-			<Image source={circDino} style={styles.imagem}></Image>
-			<Text style={styles.textName}>DINO</Text> 
-			<Level LevelNumber={1}/>
-			<View style={styles.email}>
+			<View style={{ padding: '5%' }}>
+				<Text style={styles.dashes}>
+					{' '}
+					- - - - - - - - - - - - - - - - - - -{' '}
+				</Text>
+			</View>
+			<View style={styles.emailContainer}>
 				<Text style={styles.textEmail}>Email:</Text>
-				<Text style={styles.textEmailUser}>email do dino</Text>
+				<View style={styles.emailFieldContainer}>
+					<View style={styles.emailField}></View>
+					<Text style={styles.textEmailPlaceholder}>email do dino</Text>
+				</View>
 			</View>
 		</View>
 	);
@@ -60,62 +58,80 @@ export default function Perfil({}) {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#FCFFF5',
+		backgroundColor: '#FBFEF4',
 		alignItems: 'center',
-		marginTop: '11%',
-		marginBottom: '30%'
 	},
-	btnVoltar: {
-		marginTop: '2%',
-		marginLeft: '-78%',
+	rowContainer: {
+		flexDirection: 'row',
+		paddingLeft: 20,
+		paddingRight: 20,
+		paddingTop: 10,
 	},
-	title: {
-		marginTop: '-8%',
-		fontSize: 34,
+	circDino: {
+		height: 210,
+		width: '50%',
+	},
+	columnContainer: {
+		flexDirection: 'column',
+		alignContent: 'center',
+		justifyContent: 'center',
+		width: '50%',
+	},
+	name: {
+		alignSelf: 'center',
+		fontSize: 30,
 		color: '#5C4B4B',
 		fontFamily: 'Poppins_700Bold',
+		marginTop: 45,
 	},
-	imagem: {
-		height: 200,
-		width: 200,
-		marginLeft: '-40%',
+	dashes: {
+		fontFamily: 'Poppins_500Medium',
+		color: '#5C4B4B',
+		fontSize: 20,
+		top: -10,
 	},
-	textName: {
-		marginLeft: '37%',
-		marginTop: '-38%',
+	emailContainer: {
+		flexDirection: 'column',
+		alignItems: 'center',
+		width: '85%',
+		top: -15,
+	},
+	textEmail: {
 		fontSize: 25,
 		color: '#5C4B4B',
 		fontFamily: 'Poppins_700Bold',
+		alignSelf: 'flex-start',
+		paddingLeft: '5%',
 	},
-	email: {
-		marginBottom: '70%',
+	emailFieldContainer: {
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
 	},
-	textEmail:{
-		marginLeft: '-10%',
-		fontSize: 25,
-		color: '#5C4B4B',
-		fontFamily: 'Poppins_700Bold',
+	emailField: {
+		backgroundColor: '#BCD8B3',
+		height: 60,
+		width: '100%',
+		borderRadius: 40,
+		elevation: 5,
+		shadowColor: '#000',
 	},
-	textEmailUser: {
-		marginTop: '2%',
-		fontSize: 25,
-		color: '#5C4B4B',
-		fontFamily: 'Poppins_700Bold',
-	},
-	campo: {
-		background: '#BCD8B3',
-		borderRadius: 50,
-		width: '100px',
-		height: '100px',
+	textEmailPlaceholder: {
+		fontSize: 15,
+		position:'absolute',
+        color: '#5C4B4B',
+        fontFamily: 'Poppins_500Medium',
+        alignSelf: 'flex-start',
+        paddingLeft: '5%',
 	},
 
-
+	//================================================================================================================
 	levelContainer: {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginLeft: 150,
-		marginTop: -110,
+		marginBottom: 45,
 	},
 	level: {
 		height: 512 / 6,
@@ -124,9 +140,9 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		alignContent: 'center',
-		fontSize: 25,
+		fontSize: 35,
 		color: '#1A7EF1',
 		fontFamily: 'Poppins_700Bold',
-		top: 1.5,
+		top: 3,
 	},
 });

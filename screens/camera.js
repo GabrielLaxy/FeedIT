@@ -69,7 +69,7 @@ export default function TirarFoto() {
 	async function sendString(photo, status) {
 		try {
 			const response = await axios.post(
-				'https://deb9-2804-14c-bf3a-8061-c515-6a74-7328-dcf1.ngrok-free.app/process-image',
+				'https://c6cf-2804-14c-bf3a-8061-5c21-ea99-12fb-3b70.ngrok-free.app/process-image',
 				{
 					image_base64: photo.base64,
 				}

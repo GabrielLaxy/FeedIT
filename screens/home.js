@@ -128,7 +128,7 @@ export default function Home() {
 				<LottieView source={dinoAnimation} autoPlay loop style={styles.dino} />
 				<Animated.View style={panelStyle}>
 					<Level levelNumber={0} />
-					<TopicWithProgress2 progress={status.xp} />
+					<TopicWithProgress2 progress={status.xp/100} />
 					<TopicWithProgress title="Energia" progress={status.energia/100} />
 					<TopicWithProgress title="Felicidade" progress={status.felicidade/100} />
 					<TopicWithProgress title="Alimentação" progress={status.alimentacao/100} />
