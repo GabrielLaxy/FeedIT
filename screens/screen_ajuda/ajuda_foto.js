@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import Onboarding from './onboarding';
 
 export default function TutorialScreen() {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Tela 1</Text>
+			<Onboarding />
 		</View>
 	);
 }
@@ -12,7 +13,7 @@ export default function TutorialScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#FBFEF4',
+		backgroundColor: 'white',
 		alignItems: 'center',
 		justifyContent: 'center',
 	},

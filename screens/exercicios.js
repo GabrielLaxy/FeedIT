@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	View,
 	Text,
@@ -15,8 +14,7 @@ import LottieView from 'lottie-react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const backgroundImageExercicio = require('../assets/exercicio_background.png');
-const dino_lv1 = require('../assets/dino_lv1.png');
+const backgroundImageExercicio = require('../assets/bgExerc.png');
 const shadow = require('../assets/sombra.png');
 const elipse = require('../assets/elipse.png');
 const dinoAnimation = require('../assets/dinoAnimation.json');
@@ -25,44 +23,49 @@ export default function Exercicos() {
 	const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
 	const [pastStepCount, setPastStepCount] = useState(0);
 	const [currentStepCount, setCurrentStepCount] = useState(0);
+	const [shouldFetchPastSteps, setShouldFetchPastSteps] = useState(false);
 
-	const subscribe = async () => {
-		const isAvailable = await Pedometer.isAvailableAsync();
-		setIsPedometerAvailable(String(isAvailable));
-
-		if (isAvailable) {
-			const end = new Date();
-			const start = new Date();
-			start.setDate(end.getDate() - 1);
-
-			const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
-			if (pastStepCountResult) {
-				setPastStepCount(pastStepCountResult.steps);
+useEffect(() => {
+	const checkOS = async () => {
+		const os = Platform.OS;
+		if (os === 'ios') {
+			setShouldFetchPastSteps(true);
+		} else {
+			const isAvailable = await Pedometer.isAvailableAsync();
+			setIsPedometerAvailable(String(isAvailable));
+			if (isAvailable) {
+				subscribeToStepCount();
 			}
-
-			return Pedometer.watchStepCount(result => {
-				setCurrentStepCount(result.steps);
-			});
 		}
 	};
 
-	useEffect(() => {
-		const initSubscription = async () => {
-			const sub = await subscribe();
-			return sub;
-		};
-		const init = async () => {
-			const sub = await initSubscription();
-			return () => {
-				if (sub) {
-					sub.remove();
-				}
-			};
-		};
-		const unsubscribe = init();
+	checkOS();
 
-		return () => unsubscribe();
-	}, []);
+	return () => {
+		Pedometer.watchStepCount(null);
+	};
+}, []);
+
+const subscribeToStepCount = async () => {
+	try {
+		const end = new Date();
+		const start = new Date();
+		start.setDate(end.getDate() - 1);
+
+		const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
+		if (pastStepCountResult) {
+			setPastStepCount(pastStepCountResult.steps);
+		}
+
+		const subscription = Pedometer.watchStepCount(result => {
+			setCurrentStepCount(result.steps);
+		});
+
+		return () => subscription.remove();
+	} catch (error) {
+		console.warn('Erro esperado, ambiente de execucao android:', error);
+	}
+};
 
 	return (
 		<View style={styles.container}>
@@ -78,7 +81,9 @@ export default function Exercicos() {
 				<View style={styles.centeredView}>
 					<Image source={elipse} style={styles.elipse} />
 					<Text style={styles.km}>
-						{Platform.OS === 'ios' ? pastStepCount/1000 : currentStepCount/1000}
+						{shouldFetchPastSteps
+							? pastStepCount / 1000
+							: currentStepCount / 1000}
 					</Text>
 					<Text style={styles.km2}>Km</Text>
 				</View>

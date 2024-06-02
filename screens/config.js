@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
 	View,
 	Text,
+	Image,
 	TouchableOpacity,
 	StyleSheet,
 	Linking,
@@ -12,6 +13,8 @@ import DashedLine from 'react-native-dashed-line';
 import Slider from '@react-native-community/slider';
 import { Entypo } from '@expo/vector-icons';
 import { setBackgroundMusicVolume } from '../backend/music';
+
+const logoSC = require('../assets/logoSC.png');
 
 export default function Config() {
 	const navigation = useNavigation();
@@ -97,6 +100,7 @@ export default function Config() {
 					style={styles.sairIcon}
 				/>
 			</TouchableOpacity>
+			<Image source={logoSC} style={styles.logoSC} />
 		</View>
 	);
 }
@@ -143,5 +147,11 @@ const styles = StyleSheet.create({
 	},
 	sairIcon: {
 		marginLeft: 10,
+	},
+	logoSC: {
+		alignSelf:'center',
+		bottom: -160,
+		height:402/6,
+		width:1278/6,
 	},
 });
