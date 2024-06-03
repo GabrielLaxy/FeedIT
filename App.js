@@ -1,8 +1,11 @@
 import React from 'react';
 import Routes from './screens/routes'
+import { StatusProvider } from './statusContext';
 
 export default function App() {
   return (
-      <Routes/>
-  );
+		<StatusProvider>
+			<Routes />
+		</StatusProvider>
+	);
 }

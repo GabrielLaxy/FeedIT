@@ -5,9 +5,9 @@ class Status:
     def __init__(self):
         self.dados = {
             'energia': 0,
-            'força': 0,
+            'forca': 0,
             'felicidade': 0,
-            'alimentação': 0,
+            'alimentacao': 0,
             'xp': 0,
         }
         self.decaimento_ativo = True
@@ -31,70 +31,70 @@ class Status:
 
     def adicionar_carboidratos(self):
         self.dados['energia'] += 3
-        self.dados['alimentação'] += 2
+        self.dados['alimentacao'] += 2
         self.dados['felicidade'] += 1
         self.dados['xp'] += 6
         self._verificar_limites()
 
     def adicionar_frutas(self):
         self.dados['energia'] += 2
-        self.dados['alimentação'] += 2
+        self.dados['alimentacao'] += 2
         self.dados['felicidade'] += 1
         self.dados['xp'] += 7
         self._verificar_limites()
 
     def adicionar_legumes(self):
-        self.dados['alimentação'] += 3
+        self.dados['alimentacao'] += 3
         self.dados['felicidade'] += 1
         self.dados['xp'] += 8
         self._verificar_limites()
 
     def adicionar_leite_e_derivados(self):
         self.dados['energia'] += 1
-        self.dados['alimentação'] += 2
+        self.dados['alimentacao'] += 2
         self.dados['felicidade'] += 1
-        self.dados['força'] += 2
+        self.dados['forca'] += 2
         self.dados['xp'] += 7
         self._verificar_limites()
 
     def adicionar_carnes(self):
-        self.dados['alimentação'] += 2
+        self.dados['alimentacao'] += 2
         self.dados['felicidade'] += 1
-        self.dados['força'] += 3
+        self.dados['forca'] += 3
         self.dados['xp'] += 9
         self._verificar_limites()
 
     def adicionar_leguminosas(self):
-        self.dados['alimentação'] += 2
+        self.dados['alimentacao'] += 2
         self.dados['felicidade'] += 1
-        self.dados['força'] += 3
+        self.dados['forca'] += 3
         self.dados['xp'] += 8
         self._verificar_limites()
 
     def adicionar_oleaginosas(self):
-        self.dados['alimentação'] += 2
+        self.dados['alimentacao'] += 2
         self.dados['felicidade'] += 1
-        self.dados['força'] += 3
+        self.dados['forca'] += 3
         self.dados['xp'] += 7
         self._verificar_limites()
 
     def adicionar_doces(self):
         self.dados['energia'] += 2
-        self.dados['alimentação'] -= 2
+        self.dados['alimentacao'] -= 2
         self.dados['felicidade'] += 2
         self.dados['xp'] += 4
         self._verificar_limites()
 
     def adicionar_salgados(self):
         self.dados['energia'] += 1
-        self.dados['alimentação'] -= 1
+        self.dados['alimentacao'] -= 1
         self.dados['felicidade'] += 2
         self.dados['xp'] += 3
         self._verificar_limites()
 
     def adicionar_embutidos(self):
         self.dados['energia'] += 1
-        self.dados['força'] += 1
+        self.dados['forca'] += 1
         self.dados['xp'] += 5
         self._verificar_limites()
 

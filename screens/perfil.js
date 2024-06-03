@@ -20,7 +20,7 @@ const Level = ({ LevelNumber }) => {
 	);
 };
 
-export default function Perfil({}) {
+export default function Perfil() {
 	const [fontLoaded] = useFonts({
 		Poppins_700Bold,
 		Poppins_500Medium,
@@ -146,3 +146,4 @@ const styles = StyleSheet.create({
 		top: 3,
 	},
 });
+

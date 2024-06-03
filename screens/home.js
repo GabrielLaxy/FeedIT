@@ -12,7 +12,8 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
-import Status from '../status'
+import { useStatus } from '../statusContext';
+import CameraLoader from './cameraLoader';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -20,6 +21,7 @@ const windowHeight = Dimensions.get('window').height;
 const backgroundImage = require('../assets/home_background.png');
 const shadow = require('../assets/sombra.png');
 const dinoAnimation = require('../assets/dinoAnimation.json');
+const loading = require('../assets/loading2.json');
 
 const nivel = require('../assets/level.png');
 
@@ -67,12 +69,12 @@ const TopicWithProgress2 = ({ title, progress }) => {
 };
 
 export default function Home() {
-
-	const [status, setStatus] = useState(new Status({}));
+	const { status } = useStatus();
 
 	const panelYPosition = useRef(
 		new Animated.Value(-windowHeight / 4.3)
 	).current;
+
 	const buttonYPosition = useRef(new Animated.Value(0)).current;
 	const [panelOpen, setPanelOpen] = useState(false);
 
@@ -118,6 +120,7 @@ export default function Home() {
 	};
 
 	return (
+		
 		<View style={styles.container}>
 			<ImageBackground
 				source={backgroundImage}
@@ -128,11 +131,17 @@ export default function Home() {
 				<LottieView source={dinoAnimation} autoPlay loop style={styles.dino} />
 				<Animated.View style={panelStyle}>
 					<Level levelNumber={0} />
-					<TopicWithProgress2 progress={status.xp/100} />
-					<TopicWithProgress title="Energia" progress={status.energia/100} />
-					<TopicWithProgress title="Felicidade" progress={status.felicidade/100} />
-					<TopicWithProgress title="Alimentação" progress={status.alimentacao/100} />
-					<TopicWithProgress title="Força" progress={status.forca/100} />
+					<TopicWithProgress2 progress={status.xp / 100} />
+					<TopicWithProgress title="Energia" progress={status.energia / 20} />
+					<TopicWithProgress
+						title="Felicidade"
+						progress={status.felicidade / 20}
+					/>
+					<TopicWithProgress
+						title="Alimentação"
+						progress={status.alimentacao / 20}
+					/>
+					<TopicWithProgress title="Força" progress={status.forca / 20} />
 				</Animated.View>
 				<TouchableOpacity onPress={togglePanel} style={buttonStyle}>
 					<AntDesign

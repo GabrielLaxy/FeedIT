@@ -5,26 +5,25 @@ import {
 	View,
 	SafeAreaView,
 	TouchableOpacity,
-	Modal,
 	Image,
 } from 'react-native';
 import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import Status from '../status.js';
-
+import { useStatus } from '../statusContext';
 import axios from 'axios';
+import CameraLoader from './cameraLoader';
 
 const focus = require('../assets/focus.png');
 
 export default function TirarFoto() {
 	const navigation = useNavigation();
-
 	const camRef = useRef(null);
 	const [facing, setFacing] = useState('back');
 	const [permission, requestPermission] = useCameraPermissions();
 	const [capturedPhoto, setCapturedPhoto] = useState(null);
-	const [open, setOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const { updateStatus } = useStatus();
 
 	useEffect(() => {
 		(async () => {
@@ -61,15 +60,15 @@ export default function TirarFoto() {
 		if (camRef.current) {
 			const photo = await camRef.current.takePictureAsync({ base64: true });
 			setCapturedPhoto(photo.uri);
-			setOpen(true);
-			sendString(photo);
+			await sendString(photo);
 		}
 	}
 
-	async function sendString(photo, status) {
+	async function sendString(photo) {
+		setIsLoading(true);
 		try {
 			const response = await axios.post(
-				'https://c6cf-2804-14c-bf3a-8061-5c21-ea99-12fb-3b70.ngrok-free.app/process-image',
+				'https://0899-2804-14c-bf3a-8061-64bd-688d-5ed4-c038.ngrok-free.app/process-image',
 				{
 					image_base64: photo.base64,
 				}
@@ -81,15 +80,22 @@ export default function TirarFoto() {
 					...response.data.status,
 					classificacao: response.data.classification,
 				};
-				status.update(updatedData);
+				try {
+					updateStatus(updatedData);
+				} catch (erro) {
+					console.error('Erro ao atualizar status:', erro);
+				}
 			}
 		} catch (error) {
 			console.error('Error sending string:', error);
+		} finally {
+			setIsLoading(false);
 		}
 	}
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<CameraLoader visible={isLoading} />
 			<CameraView style={{ flex: 1 }} facing={facing} ref={camRef}>
 				<View style={{ flex: 1 }}>
 					<TouchableOpacity onPress={() => navigation.navigate('Ajuda_foto')}>
@@ -108,23 +114,6 @@ export default function TirarFoto() {
 					</TouchableOpacity>
 				</View>
 			</CameraView>
-
-			{capturedPhoto && (
-				<Modal animationType="slide" transparent={false} visible={open}>
-					<View style={styles.modalContainer}>
-						<Image
-							style={styles.capturedImage}
-							source={{ uri: capturedPhoto }}
-						/>
-						<TouchableOpacity
-							style={styles.closeButton}
-							onPress={() => setOpen(false)}
-						>
-							<FontAwesome name="window-close" size={50} color="#ff0000" />
-						</TouchableOpacity>
-					</View>
-				</Modal>
-			)}
 		</SafeAreaView>
 	);
 }
@@ -149,7 +138,7 @@ const styles = StyleSheet.create({
 		width: 280,
 		height: 280,
 		alignSelf: 'center',
-		marginTop: '25%',
+		marginTop: '30%',
 	},
 	button: {
 		alignSelf: 'flex-end',
@@ -164,28 +153,5 @@ const styles = StyleSheet.create({
 	buttonText: {
 		fontSize: 18,
 		color: '#fff',
-	},
-	modalContainer: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#FBFEF4',
-	},
-	closeButton: {
-		margin: 10,
-	},
-	capturedImage: {
-		width: '90%',
-		height: 400,
-		borderRadius: 40,
-		borderColor: '#32B708',
-		borderWidth: 10,
-	},
-	text: {
-		fontSize: 34,
-		color: 'white',
-		fontFamily: 'Poppins_700Bold',
-		marginLeft: '8%',
-		marginTop: '8%',
 	},
 });
