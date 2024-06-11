@@ -12,6 +12,9 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const daily = require('../assets/daily.png');
+const estrela = require('../assets/stars/one_star.png'); 
+const semEstrela = require('../assets/stars/zero_stars.png'); // Imagem sem estrela
+
 const ProgressBar = ({ progress }) => {
 	return (
 		<View style={styles.progressBarContainer}>
@@ -30,17 +33,32 @@ const TopicWithProgress = ({ title, progress }) => {
 };
 
 export default function Tasks() {
+	const tasks = [
+		{ title: 'Carnes', progress: 0.75 },
+		{ title: 'Carboidratos', progress: 0.25 },
+		{ title: 'Frutas', progress: 0.10 },
+		{ title: 'Legumes', progress: 0.5 },
+	];
+
+	const totalProgress = tasks.reduce((sum, task) => sum + task.progress, 0);
+	const averageProgress = totalProgress / tasks.length;
+
+	const imageSource = averageProgress === 1 ? estrela : semEstrela;
+
 	return (
 		<View style={styles.container}>
 			<ImageBackground
 				source={require('../assets/backgroundTasks.png')}
 				style={styles.image}
 			>
-				<Image source={daily} style={styles.daily} />
-				<TopicWithProgress title="Carnes" progress={0.7} />
-				<TopicWithProgress title="Carboidratos" progress={0.5} />
-				<TopicWithProgress title="Frutas" progress={0.8} />
-				<TopicWithProgress title="Legumes" progress={0.3} />
+				<Image source={imageSource} style={styles.daily} />
+				{tasks.map((task, index) => (
+					<TopicWithProgress
+						key={index}
+						title={task.title}
+						progress={task.progress}
+					/>
+				))}
 			</ImageBackground>
 		</View>
 	);
@@ -49,7 +67,7 @@ export default function Tasks() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItens: 'center',
+		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
 	daily: {
