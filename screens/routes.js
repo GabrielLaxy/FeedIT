@@ -13,7 +13,7 @@ import {
 	Poppins_500Medium,
 } from '@expo-google-fonts/poppins';
 import { useIsFocused } from '@react-navigation/native';
-import { playBackgroundMusic, stopBackgroundMusic } from '../backend/js/music.js';
+import { playBackgroundMusic, stopBackgroundMusic } from '../backend/music.js';
 import { AntDesign, Feather, FontAwesome5 } from '@expo/vector-icons';
 import Ajuda_foto from './screen_ajuda/ajuda_foto.js';
 

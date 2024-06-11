@@ -38,7 +38,7 @@ export default function EscolhaNome({ navigation }) {
 	}
 
 	return (
-		<ScrollView>
+		<ScrollView contentContainerStyle={styles.scrollContainer}>
 			<View style={styles.container}>
 				<TouchableOpacity
 					style={styles.btnVoltar}
@@ -88,6 +88,9 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+	},
+	scrollContainer: {
+		flexGrow: 1,
 	},
 	containerEscolhaNome: {
 		width: '100%',
