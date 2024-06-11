@@ -16,6 +16,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AntDesign } from '@expo/vector-icons';
 import * as yup from 'yup';
+import { registerUser } from '../requests/httpsRequests';
 
 export default function TelaCadastro({ navigation }) {
 	const schema = yup.object({
@@ -26,6 +27,7 @@ export default function TelaCadastro({ navigation }) {
 			.min(7, 'Deve conter 6 letras e um número no mínimo')
 			.required('Informe sua senha'),
 	});
+
 	const {
 		control,
 		handleSubmit,
@@ -34,9 +36,17 @@ export default function TelaCadastro({ navigation }) {
 		resolver: yupResolver(schema),
 	});
 
-	function verificaCadastro(data) {
-		navigation.navigate('escolhaNome');
-		// Adicionar no Banco de Dados
+	async function verificaCadastro(data) {
+		try {
+			const response = await registerUser(data);
+			if (response.success) {
+				navigation.navigate('escolhaNome');
+			} else {
+				console.error('Erro ao registrar usuário:', response.message);
+			}
+		} catch (error) {
+			console.error('Erro ao registrar usuário:', error);
+		}
 	}
 
 	return (

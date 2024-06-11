@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import DashedLine from 'react-native-dashed-line';
 import Slider from '@react-native-community/slider';
 import { Entypo } from '@expo/vector-icons';
-import { setBackgroundMusicVolume } from '../backend/music';
+import { setBackgroundMusicVolume } from '../backend/js/music';
 
 const logoSC = require('../assets/logoSC.png');
 
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
 		marginLeft: 10,
 	},
 	logoSC: {
+		marginTop: 100,
 		alignSelf:'center',
-		bottom: -160,
 		height:402/6,
 		width:1278/6,
 	},

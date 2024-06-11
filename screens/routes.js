@@ -13,7 +13,7 @@ import {
 	Poppins_500Medium,
 } from '@expo-google-fonts/poppins';
 import { useIsFocused } from '@react-navigation/native';
-import { playBackgroundMusic, stopBackgroundMusic } from '../backend/music.js';
+import { playBackgroundMusic, stopBackgroundMusic } from '../backend/js/music.js';
 import { AntDesign, Feather, FontAwesome5 } from '@expo/vector-icons';
 import Ajuda_foto from './screen_ajuda/ajuda_foto.js';
 
@@ -181,7 +181,7 @@ function TabGroup() {
 function StackGroup() {
 	return (
 		<Stack.Navigator>
-			{/* <Stack.Screen
+			<Stack.Screen
 				name="login"
 				options={{ headerShown: false }}
 				component={TelaLogin}
@@ -195,7 +195,7 @@ function StackGroup() {
 				name="escolhaNome"
 				options={{ headerShown: false }}
 				component={EscolhaNome}
-			/> */}
+			/>
 			<Stack.Screen
 				name="TabGroup"
 				options={{ headerShown: false }}

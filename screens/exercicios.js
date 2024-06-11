@@ -25,47 +25,47 @@ export default function Exercicos() {
 	const [currentStepCount, setCurrentStepCount] = useState(0);
 	const [shouldFetchPastSteps, setShouldFetchPastSteps] = useState(false);
 
-useEffect(() => {
-	const checkOS = async () => {
-		const os = Platform.OS;
-		if (os === 'ios') {
-			setShouldFetchPastSteps(true);
-		} else {
-			const isAvailable = await Pedometer.isAvailableAsync();
-			setIsPedometerAvailable(String(isAvailable));
-			if (isAvailable) {
-				subscribeToStepCount();
+	useEffect(() => {
+		const checkOS = async () => {
+			const os = Platform.OS;
+			if (os === 'ios') {
+				setShouldFetchPastSteps(true);
+			} else {
+				const isAvailable = await Pedometer.isAvailableAsync();
+				setIsPedometerAvailable(String(isAvailable));
+				if (isAvailable) {
+					subscribeToStepCount();
+				}
 			}
+		};
+
+		checkOS();
+
+		return () => {
+			Pedometer.watchStepCount(null);
+		};
+	}, []);
+
+	const subscribeToStepCount = async () => {
+		try {
+			const end = new Date();
+			const start = new Date();
+			start.setDate(end.getDate() - 1);
+
+			const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
+			if (pastStepCountResult) {
+				setPastStepCount(pastStepCountResult.steps);
+			}
+
+			const subscription = Pedometer.watchStepCount(result => {
+				setCurrentStepCount(result.steps);
+			});
+
+			return () => subscription.remove();
+		} catch (error) {
+			console.warn('Erro esperado, ambiente de execucao android:', error);
 		}
 	};
-
-	checkOS();
-
-	return () => {
-		Pedometer.watchStepCount(null);
-	};
-}, []);
-
-const subscribeToStepCount = async () => {
-	try {
-		const end = new Date();
-		const start = new Date();
-		start.setDate(end.getDate() - 1);
-
-		const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
-		if (pastStepCountResult) {
-			setPastStepCount(pastStepCountResult.steps);
-		}
-
-		const subscription = Pedometer.watchStepCount(result => {
-			setCurrentStepCount(result.steps);
-		});
-
-		return () => subscription.remove();
-	} catch (error) {
-		console.warn('Erro esperado, ambiente de execucao android:', error);
-	}
-};
 
 	return (
 		<View style={styles.container}>
