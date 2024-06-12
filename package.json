@@ -35,7 +35,6 @@
     "react-native": "0.74.2",
     "react-native-awesome-slider": "^2.5.3",
     "react-native-dashed-line": "^1.1.0",
-    "react-native-dotenv": "^3.4.11",
     "react-native-fs": "^2.20.0",
     "react-native-image-resizer": "^1.4.5",
     "react-native-modal": "^13.0.1",
@@ -48,7 +47,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "react-native-dotenv": "^3.4.11"
   },
   "private": true
 }

@@ -24,7 +24,7 @@ export default function TelaCadastro({ navigation }) {
 		email: yup.string().email('Email inválido').required('Informe seu e-mail'),
 		senha: yup
 			.string()
-			.min(7, 'Deve conter 6 letras e um número no mínimo')
+			.min(7, 'A senha deve conter no mínimo 7 caracteres')
 			.required('Informe sua senha'),
 	});
 
