@@ -69,12 +69,11 @@ def add_character_name_service(character: Character):
         cursor.close()
         cnx.close()
 
-        return {"success": True, "message": "Nome do personagem adicionado com sucesso", "nome" : character.nome}
+        return {"success": True, "message": "Nome do personagem adicionado com sucesso", "nome" : character.nome, "idPaciente" : character.idPaciente}
 
     except mysql.connector.Error as err:
         raise HTTPException(status_code=400, detail=str(err))
 
-paciente_ids = []
 
 def login_user_service(email: str, senha: str):
     try:
@@ -96,3 +95,29 @@ def login_user_service(email: str, senha: str):
     except mysql.connector.Error as err:
         raise HTTPException(status_code=400, detail=str(err))
 
+def save_status_to_db(id_paciente, status_data):
+    try:
+        cnx = get_db_connection()
+        cursor = cnx.cursor()
+
+        query = """
+            UPDATE Personagem
+            SET Energia = %s, Força = %s, Felicidade = %s, Alimentação = %s, XP = %s
+            WHERE idPaciente = %s
+        """
+        data = (
+            status_data['energia'], 
+            status_data['forca'], 
+            status_data['felicidade'], 
+            status_data['alimentacao'], 
+            status_data['xp'], 
+            id_paciente
+        )
+
+        cursor.execute(query, data)
+        cnx.commit()
+
+        cursor.close()
+        cnx.close()
+    except mysql.connector.Error as err:
+        raise HTTPException(status_code=400, detail=str(err))

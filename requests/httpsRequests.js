@@ -1,7 +1,9 @@
 import axios from 'axios';
+import { setIdPaciente } from '../storage';
 import { SERVER_URL } from '@env';
 
-const API_URL = process.env.SERVER_URL;
+const API_URL =
+	'https://9c63-2804-14c-bf3a-8061-4976-4c7-486-2363.ngrok-free.app';
 
 export const registerUser = async data => {
 	try {
@@ -26,9 +28,11 @@ export const loginUser = async data => {
 export const addCharacterName = async data => {
 	try {
 		const response = await axios.post(`${API_URL}/add-character-name`, data);
+		setIdPaciente(response.data.idPaciente);
 		return response.data;
 	} catch (error) {
 		console.error('Erro ao adicionar nome do personagem:', error);
 		throw error;
 	}
 };
+

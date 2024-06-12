@@ -7,6 +7,7 @@ class Status {
 		this.xp = data.xp || 0;
 		this.classificacao = data.classificacao || '';
 		this.nome = data.nome || '';
+		this.id = data.id || 0;
 	}
 
 	update(data) {
@@ -17,6 +18,7 @@ class Status {
 		this.xp = data.xp;
 		this.classificacao = data.classificacao || this.classificacao;
 		this.nome = data.nome || this.nome;
+		this.id = data.id = this.id;
 	}
 
 	traduzirClassificacao() {
@@ -33,6 +35,17 @@ class Status {
 			nfound: 'Não encontrado',
 		};
 		return traducao[this.classificacao] || this.classificacao;
+	}
+	
+	imprimirAtributos() {
+		console.log(`Energia: ${this.energia}`);
+		console.log(`Força: ${this.forca}`);
+		console.log(`Felicidade: ${this.felicidade}`);
+		console.log(`Alimentação: ${this.alimentacao}`);
+		console.log(`XP: ${this.xp}`);
+		console.log(`Classificação: ${this.traduzirClassificacao()}`);
+		console.log(`Nome: ${this.nome}`);
+		console.log(`ID: ${this.id}`);
 	}
 }
 

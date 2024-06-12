@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useStatus } from '../statusContext';
 import axios from 'axios';
 import CameraLoader from './cameraLoader';
+import { getIdPaciente } from '../storage';
 
 const focus = require('../assets/focus.png');
 
@@ -24,6 +25,7 @@ export default function TirarFoto() {
 	const [capturedPhoto, setCapturedPhoto] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const { updateStatus } = useStatus();
+	const idPaciente = getIdPaciente();
 
 	useEffect(() => {
 		(async () => {
@@ -64,34 +66,56 @@ export default function TirarFoto() {
 		}
 	}
 
-	async function sendString(photo) {
-		setIsLoading(true);
-		try {
-			const response = await axios.post(
-				'https://1e87-2804-14c-bf3a-8061-6191-891f-40d0-7e91.ngrok-free.app/process-image',
-				{
-					image_base64: photo.base64,
-				}
-			);
-			console.log('Received from FastAPI:', response.data);
-
-			if (response.data && response.data.status) {
-				const updatedData = {
-					...response.data.status,
-					classificacao: response.data.classification,
-				};
-				try {
-					updateStatus(updatedData);
-				} catch (erro) {
-					console.error('Erro ao atualizar status:', erro);
-				}
+async function sendString(photo) {
+	setIsLoading(true);
+	try {
+		// Primeira requisição para processar a imagem
+		const response = await axios.post(
+			'https://9c63-2804-14c-bf3a-8061-4976-4c7-486-2363.ngrok-free.app/process-image',
+			{
+				image_base64: photo.base64,
 			}
-		} catch (error) {
-			console.error('Error sending string:', error);
-		} finally {
-			setIsLoading(false);
+		);
+		console.log('Received from FastAPI:', response.data);
+
+		if (response.data && response.data.status) {
+			const updatedData = {
+				...response.data.status,
+				classificacao: response.data.classification,
+			};
+			try {
+				updateStatus(updatedData);
+			} catch (erro) {
+				console.error('Erro ao atualizar status:', erro);
+			}
+
+			try {
+				const idPaciente = getIdPaciente();
+				console.log('idPaciente armazenado:', idPaciente);
+
+				const responseStatus = await axios.post(
+					'https://9c63-2804-14c-bf3a-8061-4976-4c7-486-2363.ngrok-free.app/save-status',
+					{
+						idPaciente: idPaciente,
+						energia: updatedData.energia,
+						forca: updatedData.forca,
+						felicidade: updatedData.felicidade,
+						alimentacao: updatedData.alimentacao,
+						xp: updatedData.xp,
+					}
+				);
+
+				console.log('Status salvo:', responseStatus.data);
+			} catch (error) {
+				console.error('Erro ao salvar status:', error);
+			}
 		}
+	} catch (error) {
+		console.error('Error sending string:', error);
+	} finally {
+		setIsLoading(false);
 	}
+}
 
 	return (
 		<SafeAreaView style={styles.container}>

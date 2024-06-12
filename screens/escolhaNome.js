@@ -42,7 +42,6 @@ export default function EscolhaNome({ route, navigation }) {
 				idPaciente: idPaciente,
 				nome: data.nomeBicho,
 			});
-			console.log('Nome do personagem adicionado com sucesso:', result);
 			navigation.navigate('TabGroup');
 		} catch (error) {
 			console.error('Erro ao adicionar nome do personagem:', error);
