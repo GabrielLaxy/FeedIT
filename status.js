@@ -6,6 +6,7 @@ class Status {
 		this.alimentacao = data.alimentacao || 0;
 		this.xp = data.xp || 0;
 		this.classificacao = data.classificacao || '';
+		this.nome = data.nome || '';
 	}
 
 	update(data) {
@@ -15,6 +16,7 @@ class Status {
 		this.alimentacao = data.alimentacao;
 		this.xp = data.xp;
 		this.classificacao = data.classificacao || this.classificacao;
+		this.nome = data.nome || this.nome;
 	}
 
 	traduzirClassificacao() {

@@ -13,6 +13,7 @@ class Status:
         self.decaimento_ativo = True
         self.iniciar_decaimento()
 
+#tem q subir aki as coisas no db
     def _verificar_limites(self):
         for key in self.dados:
             if self.dados[key] > 100:

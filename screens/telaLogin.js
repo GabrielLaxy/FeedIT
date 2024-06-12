@@ -12,14 +12,13 @@ import { useFonts, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { loginUser } from '../requests/httpsRequests.js';
 
 export default function TelaLogin({ navigation }) {
-	// Carga das fontes deve ser feita antes de qualquer renderização condicional
 	const [fontsLoaded] = useFonts({
 		Poppins_700Bold,
 	});
 
-	// Definindo o esquema de validação
 	const schema = yup.object({
 		email: yup.string().email('Email inválido').required('Informe seu e-mail'),
 		senha: yup
@@ -28,7 +27,6 @@ export default function TelaLogin({ navigation }) {
 			.required('Informe sua senha'),
 	});
 
-	// Inicializando useForm hook
 	const {
 		control,
 		handleSubmit,
@@ -37,14 +35,22 @@ export default function TelaLogin({ navigation }) {
 		resolver: yupResolver(schema),
 	});
 
-	// Função para verificação de login
-	function verificaLogin(data) {
-		navigation.navigate('TabGroup');
+	async function verificaLogin(data) {
+		try {
+			const response = await loginUser(data);
+			if (response.success) {
+				navigation.navigate('TabGroup', { idPaciente: response.idPaciente });
+			} else {
+				console.error('Erro ao logar usuário:', response.message);
+			}
+		} catch (error) {
+			console.error('Erro ao logar usuário:', error);
+		}
+		
 	}
 
-	// Verificação de fontes carregadas deve ser a última parte antes do retorno JSX
 	if (!fontsLoaded) {
-		return null; // Pode retornar um spinner ou outro indicador de carregamento
+		return null; 
 	}
 
 	return (

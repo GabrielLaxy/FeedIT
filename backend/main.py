@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from services.image_service import process_image_service
-from services.db_service import register_user_service
+from services.db_service import register_user_service, add_character_name_service, login_user_service
 from status import Status
 
 app = FastAPI()
@@ -13,6 +13,10 @@ class User(BaseModel):
     nome: str
     email: str
     senha: str
+
+class Character(BaseModel):
+    idPaciente: int
+    nome: str
 
 status = Status()
 
@@ -28,6 +32,27 @@ async def process_image(data: ImageData):
 async def register_user(user: User):
     try:
         result = register_user_service(user)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/add-character-name")
+async def add_character_name(character: Character):
+    try:
+        print(f"Recebido idPaciente: {character.idPaciente}, nome: {character.nome}") 
+        result = add_character_name_service(character)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+class LoginData(BaseModel):
+    email: str
+    senha: str
+
+@app.post("/login")
+async def login_user(user: LoginData):
+    try:
+        result = login_user_service(user.email, user.senha)
         return result
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
