@@ -11,9 +11,13 @@ import {
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const daily = require('../assets/daily.png');
-const estrela = require('../assets/stars/one_star.png'); 
-const semEstrela = require('../assets/stars/zero_stars.png'); // Imagem sem estrela
+const images = [
+	require('../assets/stars/zero_stars.png'),  
+	require('../assets/stars/one_star.png'),
+	require('../assets/stars/two_stars.png'),  
+	require('../assets/stars/three_stars.png'), 
+	require('../assets/stars/four_stars.png'),  
+];
 
 const ProgressBar = ({ progress }) => {
 	return (
@@ -34,16 +38,17 @@ const TopicWithProgress = ({ title, progress }) => {
 
 export default function Tasks() {
 	const tasks = [
-		{ title: 'Carnes', progress: 0.75 },
-		{ title: 'Carboidratos', progress: 0.25 },
-		{ title: 'Frutas', progress: 0.10 },
-		{ title: 'Legumes', progress: 0.5 },
+		{ title: 'Carnes', progress: 1.0 },
+		{ title: 'Carboidratos', progress: 1.0 },
+		{ title: 'Frutas', progress: 1.0 },
+		{ title: 'Legumes', progress: 1. },
 	];
 
-	const totalProgress = tasks.reduce((sum, task) => sum + task.progress, 0);
-	const averageProgress = totalProgress / tasks.length;
 
-	const imageSource = averageProgress === 1 ? estrela : semEstrela;
+	const completedTasksCount = tasks.filter(task => task.progress === 1).length;
+
+
+	const imageSource = images[Math.min(completedTasksCount, images.length - 1)];
 
 	return (
 		<View style={styles.container}>
@@ -51,7 +56,9 @@ export default function Tasks() {
 				source={require('../assets/backgroundTasks.png')}
 				style={styles.image}
 			>
-				<Image source={imageSource} style={styles.daily} />
+				<View style={styles.starsContainer}>
+					<Image source={imageSource} style={styles.star} />
+				</View>
 				{tasks.map((task, index) => (
 					<TopicWithProgress
 						key={index}
@@ -68,7 +75,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 	},
 	daily: {
 		width: 877.44 / 2.6,
@@ -82,6 +89,17 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		padding: 20,
+	},
+	starsContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginBottom: 20,
+	},
+	star: {
+		width: 300,  
+		height: 54, 
+		marginHorizontal: 5,
 	},
 	text: {
 		color: 'white',
