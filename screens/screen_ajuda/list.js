@@ -3,7 +3,7 @@ export default [
 		id: '1',
 		title: 'Fotos Divertidas!',
 		description: 'Tire fotos de comidinhas e ganhe pontos!',
-		image: require('../../assets/list1.png'),
+		image: require('../../assets/image2.png'),
 	},
 	{
 		id: '2',
