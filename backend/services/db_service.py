@@ -2,15 +2,16 @@ import mysql.connector
 from mysql.connector import errorcode
 from pydantic import BaseModel
 import os
-from dotenv import load_dotenv
 from fastapi import HTTPException
-
-load_dotenv()
 
 class User(BaseModel):
     nome: str
     email: str
     senha: str
+
+class Character(BaseModel):
+    idPaciente: int
+    nome: str
 
 config = {
     'user': os.getenv("DB_USER"),
@@ -43,10 +44,55 @@ def register_user_service(user: User):
         cursor.execute(add_paciente, paciente_data)
         cnx.commit()
 
+        id_paciente = cursor.lastrowid
+
         cursor.close()
         cnx.close()
 
-        return {"success": True, "message": "Usuário registrado com sucesso"}
+        return {"success": True, "message": "Usuário registrado com sucesso", "idPaciente": id_paciente}
 
     except mysql.connector.Error as err:
         raise HTTPException(status_code=400, detail=str(err))
+
+def add_character_name_service(character: Character):
+    try:
+        cnx = get_db_connection()
+        cursor = cnx.cursor()
+
+        add_personagem = ("INSERT INTO Personagem (idPaciente, Nome) VALUES (%s, %s)")
+        personagem_data = (character.idPaciente, character.nome)
+
+        cursor.execute(add_personagem, personagem_data)
+        cnx.commit()
+        
+
+        cursor.close()
+        cnx.close()
+
+        return {"success": True, "message": "Nome do personagem adicionado com sucesso", "nome" : character.nome}
+
+    except mysql.connector.Error as err:
+        raise HTTPException(status_code=400, detail=str(err))
+
+paciente_ids = []
+
+def login_user_service(email: str, senha: str):
+    try:
+        cnx = get_db_connection()
+        cursor = cnx.cursor()
+
+        query = ("SELECT idPaciente, nome FROM Paciente WHERE email = %s AND senha = %s")
+        cursor.execute(query, (email, senha))
+
+        user = cursor.fetchone()
+        cursor.close()
+        cnx.close()
+
+        if user:
+            return {"success": True, "message": "Login bem-sucedido", "user": {"id": user[0], "nome": user[1]}}
+        else:
+            raise HTTPException(status_code=400, detail="Email ou senha incorretos")
+
+    except mysql.connector.Error as err:
+        raise HTTPException(status_code=400, detail=str(err))
+

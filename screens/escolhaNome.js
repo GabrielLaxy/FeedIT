@@ -16,8 +16,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AntDesign } from '@expo/vector-icons';
 import * as yup from 'yup';
+import { addCharacterName } from '../requests/httpsRequests';
+import { useStatus } from '../statusContext';
 
-export default function EscolhaNome({ navigation }) {
+export default function EscolhaNome({ route, navigation }) {
+	const { updateStatus } = useStatus();
+	const {idPaciente} = route.params;
 	const schema = yup.object({
 		nomeBicho: yup
 			.string()
@@ -32,9 +36,17 @@ export default function EscolhaNome({ navigation }) {
 		resolver: yupResolver(schema),
 	});
 
-	function verificaAmigo(data) {
-		navigation.navigate('TabGroup');
-		// Adicionar no Banco de Dados
+	async function verificaAmigo(data) {
+		try {
+			const result = await addCharacterName({
+				idPaciente: idPaciente,
+				nome: data.nomeBicho,
+			});
+			console.log('Nome do personagem adicionado com sucesso:', result);
+			navigation.navigate('TabGroup');
+		} catch (error) {
+			console.error('Erro ao adicionar nome do personagem:', error);
+		}
 	}
 
 	return (

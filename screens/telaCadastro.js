@@ -40,7 +40,7 @@ export default function TelaCadastro({ navigation }) {
 		try {
 			const response = await registerUser(data);
 			if (response.success) {
-				navigation.navigate('escolhaNome');
+				navigation.navigate('escolhaNome', {idPaciente : response.idPaciente});
 			} else {
 				console.error('Erro ao registrar usuário:', response.message);
 			}

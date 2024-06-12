@@ -6,6 +6,7 @@ import {
 	Poppins_500Medium,
 } from '@expo-google-fonts/poppins';
 import DashedLine from 'react-native-dashed-line';
+import { useStatus } from '../statusContext';
 
 const circDino = require('../assets/circDino.png');
 const SetaCadastro = require('../assets/SetaCadastro.png');
@@ -21,6 +22,10 @@ const Level = ({ LevelNumber }) => {
 };
 
 export default function Perfil() {
+	const { status } = useStatus();
+	const nome = status.nome;
+	console.log(nome);
+
 	const [fontLoaded] = useFonts({
 		Poppins_700Bold,
 		Poppins_500Medium,
@@ -29,12 +34,13 @@ export default function Perfil() {
 	if (!fontLoaded) {
 		return null;
 	}
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.rowContainer}>
 				<Image source={circDino} style={styles.circDino}></Image>
 				<View style={styles.columnContainer}>
-					<Text style={styles.name}>DINO</Text>
+					<Text style={styles.name}>{nome}</Text>
 					<Level LevelNumber={5} />
 				</View>
 			</View>
