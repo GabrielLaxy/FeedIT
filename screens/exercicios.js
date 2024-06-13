@@ -75,7 +75,7 @@ export default function Exercicos() {
 				style={styles.imageBackground}
 			>
 				<View style={styles.generalText}>
-					<Text style={styles.text}>Vocês andaram hoje:</Text>
+					<Text style={styles.text}>Vocês juntos{'\n'}andaram hoje:</Text>
 				</View>
 				<View style={styles.centeredView}>
 					<Image source={elipse} style={styles.elipse} />
@@ -109,11 +109,11 @@ const styles = StyleSheet.create({
 		marginLeft: '-40%',
 	},
 	text: {
-		fontSize: 34,
+		fontSize: 30,
 		color: 'white',
 		fontFamily: 'Poppins_700Bold',
 		alignSelf: 'flex-start',
-		marginLeft: '15%',
+		marginLeft: '8%',
 	},
 	centeredView: {
 		flex: 1,
