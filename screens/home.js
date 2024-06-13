@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import {
 	View,
 	Text,
@@ -8,12 +8,12 @@ import {
 	Dimensions,
 	Animated,
 	TouchableOpacity,
-	Easing,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
 import { useStatus } from '../statusContext';
 import { getIdPaciente } from '../storage';
+import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 
 const windowWidth = Dimensions.get('window').width;
@@ -22,8 +22,6 @@ const windowHeight = Dimensions.get('window').height;
 const backgroundImage = require('../assets/home_background.png');
 const shadow = require('../assets/sombra.png');
 const dinoAnimation = require('../assets/dinoAnimation.json');
-const loading = require('../assets/loading2.json');
-
 const nivel = require('../assets/level.png');
 
 const Level = ({ levelNumber }) => {
@@ -74,22 +72,26 @@ export default function Home() {
 	const [characterStatus, setCharacterStatus] = useState(null);
 	const idPaciente = getIdPaciente();
 
-	async function updateStatusFromDb() {
+	const updateStatusFromDb = useCallback(async () => {
 		try {
 			const response = await axios.get(
 				`https://9c63-2804-14c-bf3a-8061-4976-4c7-486-2363.ngrok-free.app/character-status/${idPaciente}`
 			);
-
 			setCharacterStatus(response.data);
 		} catch (error) {
 			console.error('Erro ao buscar status do personagem:', error);
 		}
-	}
+	}, [idPaciente]);
+
+	useFocusEffect(
+		useCallback(() => {
+			updateStatusFromDb();
+		}, [updateStatusFromDb])
+	);
 
 	const panelYPosition = useRef(
 		new Animated.Value(-windowHeight / 4.3)
 	).current;
-
 	const buttonYPosition = useRef(new Animated.Value(0)).current;
 	const [panelOpen, setPanelOpen] = useState(false);
 
@@ -148,9 +150,7 @@ export default function Home() {
 				<LottieView source={dinoAnimation} autoPlay loop style={styles.dino} />
 				<Animated.View style={panelStyle}>
 					<Level levelNumber={0} />
-					<TopicWithProgress2
-						progress={(characterStatus?.XP ?? 0) / 100}
-					/>
+					<TopicWithProgress2 progress={(characterStatus?.XP ?? 0) / 100} />
 					<TopicWithProgress
 						title="Energia"
 						progress={(characterStatus?.Energia ?? 0) / 20}
@@ -204,13 +204,6 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		bottom: 30,
 	},
-	iconContainer: {
-		position: 'absolute',
-		top: 20,
-		right: 20,
-		zIndex: 1,
-	},
-	seta: {},
 	// ============================================================
 	progressBarContainer: {
 		alignSelf: 'center',

@@ -82,6 +82,7 @@ async function sendString(photo) {
 				...response.data.status,
 				classificacao: response.data.classification,
 			};
+
 			try {
 				updateStatus(updatedData);
 			} catch (erro) {
@@ -107,6 +108,53 @@ async function sendString(photo) {
 				console.log('Status salvo:', responseStatus.data);
 			} catch (error) {
 				console.error('Erro ao salvar status:', error);
+			}
+
+			try {
+				const idPaciente = getIdPaciente();
+				let missao1 = 0,
+					missao2 = 0,
+					missao3 = 0,
+					missao4 = 0;
+
+				switch (response.data.classification.toLowerCase()) {
+					case 'protein':
+					case 'proteins':
+						missao1 = 1;
+						break;
+					case 'carbohydrate':
+					case 'carbohydrates':
+						missao2 = 1;
+						break;
+					case 'fruit':
+					case 'fruits':
+						missao3 = 1;
+						break;
+					case 'vegetable':
+					case 'vegetables':
+						missao4 = 1;
+						break;
+					default:
+						console.log('Classificação não reconhecida');
+				}
+
+				const responseClassification = await axios.post(
+					'https://9c63-2804-14c-bf3a-8061-4976-4c7-486-2363.ngrok-free.app/add-mission',
+					{
+						idPaciente: idPaciente,
+						Missao1: missao1,
+						Missao2: missao2,
+						Missao3: missao3,
+						Missao4: missao4,
+					}
+				);
+
+				console.log(
+					'Missão adicionada com sucesso:',
+					responseClassification.data
+				);
+			} catch (error) {
+				console.error('Erro ao adicionar missão:', error);
 			}
 		}
 	} catch (error) {

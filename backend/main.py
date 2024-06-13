@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from services.image_service import process_image_service
-from services.db_service import register_user_service, add_character_name_service, login_user_service, save_status_to_db, get_character_status
+from services.db_service import register_user_service, add_character_name_service, login_user_service, save_status_to_db, get_character_status, add_mission_service, get_missions_service
 from status import Status
 
 app = FastAPI()
@@ -92,3 +92,32 @@ async def character_status(id_paciente: int):
         raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+class MissionData(BaseModel):
+    idPaciente: int
+    Missao1: int
+    Missao2: int
+    Missao3: int
+    Missao4: int
+    
+@app.post("/add-mission")
+async def add_mission(mission_data: MissionData):
+    try:
+        result = add_mission_service(
+            mission_data.idPaciente,
+            mission_data.Missao1,
+            mission_data.Missao2,
+            mission_data.Missao3,
+            mission_data.Missao4
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+@app.get("/get-missions/{id_paciente}")
+async def get_missions(id_paciente: int):
+    try:
+        result = get_missions_service(id_paciente)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))

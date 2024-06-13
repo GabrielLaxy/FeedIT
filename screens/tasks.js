@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
 	View,
 	Text,
@@ -7,16 +7,19 @@ import {
 	Dimensions,
 	StyleSheet,
 } from 'react-native';
+import { getIdPaciente } from '../storage';
+import { useFocusEffect } from '@react-navigation/native';
+import axios from 'axios';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const images = [
-	require('../assets/stars/zero_stars.png'),  
+	require('../assets/stars/zero_stars.png'),
 	require('../assets/stars/one_star.png'),
-	require('../assets/stars/two_stars.png'),  
-	require('../assets/stars/three_stars.png'), 
-	require('../assets/stars/four_stars.png'),  
+	require('../assets/stars/two_stars.png'),
+	require('../assets/stars/three_stars.png'),
+	require('../assets/stars/four_stars.png'),
 ];
 
 const ProgressBar = ({ progress }) => {
@@ -37,16 +40,34 @@ const TopicWithProgress = ({ title, progress }) => {
 };
 
 export default function Tasks() {
+	const idPaciente = getIdPaciente();
+	const [userTasks, setUserTasks] = useState(null);
+
+	const updateTasksFromDb = useCallback(async () => {
+		try {
+			const response = await axios.get(
+				`https://9c63-2804-14c-bf3a-8061-4976-4c7-486-2363.ngrok-free.app/get-missions/${idPaciente}`
+			);
+			setUserTasks(response.data);
+		} catch (error) {
+			console.error('Erro ao buscar tasks do usuario:', error);
+		}
+	}, [idPaciente]);
+
+	useFocusEffect(
+		useCallback(() => {
+			updateTasksFromDb();
+		}, [updateTasksFromDb])
+	);
+
 	const tasks = [
-		{ title: 'Carnes', progress: 1.0 },
-		{ title: 'Carboidratos', progress: 1.0 },
-		{ title: 'Frutas', progress: 1.0 },
-		{ title: 'Legumes', progress: 1. },
+		{ title: 'Carnes', progress: (userTasks?.Missao1 ?? 0) / 10 },
+		{ title: 'Carboidratos', progress: (userTasks?.Missao2 ?? 0) / 10 },
+		{ title: 'Frutas', progress: (userTasks?.Missao3 ?? 0) / 10 },
+		{ title: 'Legumes', progress: (userTasks?.Missao4 ?? 0) / 10 },
 	];
 
-
 	const completedTasksCount = tasks.filter(task => task.progress === 1).length;
-
 
 	const imageSource = images[Math.min(completedTasksCount, images.length - 1)];
 
@@ -97,9 +118,10 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 	},
 	star: {
-		width: 300,  
-		height: 54, 
+		width: 877.44 / 2.6,
+		height: 156 / 2.6,
 		marginHorizontal: 5,
+		marginTop: -20,
 	},
 	text: {
 		color: 'white',

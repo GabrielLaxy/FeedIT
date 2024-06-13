@@ -145,3 +145,49 @@ def get_character_status(id_paciente: int):
 
     except mysql.connector.Error as err:
         raise HTTPException(status_code=400, detail=str(err))
+    
+def add_mission_service(id_paciente: int, missao1: int, missao2: int, missao3: int, missao4: int):
+    try:
+        cnx = get_db_connection()
+        cursor = cnx.cursor()
+
+        add_mission = (
+            "INSERT INTO Missoes (idPaciente, Missao1, Missao2, Missao3, Missao4) "
+            "VALUES (%s, %s, %s, %s, %s)"
+        )
+        mission_data = (id_paciente, missao1, missao2, missao3, missao4)
+
+        cursor.execute(add_mission, mission_data)
+        cnx.commit()
+
+        cursor.close()
+        cnx.close()
+
+        return {"success": True, "message": "Missões adicionadas com sucesso", "idPaciente": id_paciente}
+
+    except mysql.connector.Error as err:
+        raise HTTPException(status_code=400, detail=str(err))
+    
+def get_missions_service(id_paciente: int):
+    try:
+        cnx = get_db_connection()
+        cursor = cnx.cursor(dictionary=True)
+
+        query = (
+            "SELECT Missao1, Missao2, Missao3, Missao4 "
+            "FROM Missoes "
+            "WHERE idPaciente = %s"
+        )
+        cursor.execute(query, (id_paciente,))
+        result = cursor.fetchone()
+
+        cursor.close()
+        cnx.close()
+
+        if result:
+            return result
+        else:
+            raise HTTPException(status_code=404, detail="Missões não encontradas para o paciente fornecido")
+
+    except mysql.connector.Error as err:
+        raise HTTPException(status_code=400, detail=str(err))

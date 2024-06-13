@@ -80,14 +80,14 @@ export default function Config() {
 				minimumTrackTintColor="#26A910"
 				maximumTrackTintColor="#D8D8D8"
 				thumbTintColor="#3FC600"
-				onValueChange={handleVolumeChange} // Adiciona o manipulador de eventos
+				onValueChange={handleVolumeChange}
 			/>
-			<TouchableOpacity
+			{/* <TouchableOpacity
 				style={styles.topicosContainers}
 				onPress={() => navigation.navigate('Perfil')}
 			>
 				<Text style={styles.topicos}>Perfil</Text>
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 			<TouchableOpacity style={styles.topicosContainers} onPress={emailSuporte}>
 				<Text style={styles.topicos}>Suporte</Text>
 			</TouchableOpacity>
