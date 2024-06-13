@@ -88,7 +88,7 @@ def login_user_service(email: str, senha: str):
         cnx.close()
 
         if user:
-            return {"success": True, "message": "Login bem-sucedido", "user": {"id": user[0], "nome": user[1]}}
+            return {"success": True, "message": "Login bem-sucedido", "user": {"idPaciente": user[0], "nome": user[1]}}
         else:
             raise HTTPException(status_code=400, detail="Email ou senha incorretos")
 
@@ -119,5 +119,29 @@ def save_status_to_db(id_paciente, status_data):
 
         cursor.close()
         cnx.close()
+    except mysql.connector.Error as err:
+        raise HTTPException(status_code=400, detail=str(err))
+
+def get_character_status(id_paciente: int):
+    try:
+        cnx = get_db_connection()
+        cursor = cnx.cursor(dictionary=True)
+
+        query = """
+            SELECT Força, Energia, Felicidade, Alimentação, XP
+            FROM Personagem
+            WHERE idPaciente = %s
+        """
+        cursor.execute(query, (id_paciente,))
+        status = cursor.fetchone()
+
+        cursor.close()
+        cnx.close()
+
+        if not status:
+            raise HTTPException(status_code=404, detail="Status do personagem não encontrado")
+
+        return status
+
     except mysql.connector.Error as err:
         raise HTTPException(status_code=400, detail=str(err))

@@ -75,8 +75,7 @@ export default function Exercicos() {
 				style={styles.imageBackground}
 			>
 				<View style={styles.generalText}>
-					<Text style={styles.text}>Dino e você</Text>
-					<Text style={styles.text}>andaram hoje:</Text>
+					<Text style={styles.text}>Vocês andaram hoje:</Text>
 				</View>
 				<View style={styles.centeredView}>
 					<Image source={elipse} style={styles.elipse} />

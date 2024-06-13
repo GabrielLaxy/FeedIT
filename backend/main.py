@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from services.image_service import process_image_service
-from services.db_service import register_user_service, add_character_name_service, login_user_service, save_status_to_db
+from services.db_service import register_user_service, add_character_name_service, login_user_service, save_status_to_db, get_character_status
 from status import Status
 
 app = FastAPI()
@@ -79,3 +79,16 @@ async def save_status(status_data: StatusData):
         return {"message": "Status saved successfully"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+class StatusData(BaseModel):
+    idPaciente: int
+
+@app.get("/character-status/{id_paciente}")
+async def character_status(id_paciente: int):
+    try:
+        status = get_character_status(id_paciente)
+        return status
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

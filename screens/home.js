@@ -13,7 +13,8 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
 import { useStatus } from '../statusContext';
-import CameraLoader from './cameraLoader';
+import { getIdPaciente } from '../storage';
+import axios from 'axios';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -70,6 +71,20 @@ const TopicWithProgress2 = ({ title, progress }) => {
 
 export default function Home() {
 	const { status } = useStatus();
+	const [characterStatus, setCharacterStatus] = useState(null);
+	const idPaciente = getIdPaciente();
+
+	async function updateStatusFromDb() {
+		try {
+			const response = await axios.get(
+				`https://9c63-2804-14c-bf3a-8061-4976-4c7-486-2363.ngrok-free.app/character-status/${idPaciente}`
+			);
+
+			setCharacterStatus(response.data);
+		} catch (error) {
+			console.error('Erro ao buscar status do personagem:', error);
+		}
+	}
 
 	const panelYPosition = useRef(
 		new Animated.Value(-windowHeight / 4.3)
@@ -94,6 +109,10 @@ export default function Home() {
 			useNativeDriver: true,
 		}).start();
 
+		if (!panelOpen) {
+			updateStatusFromDb();
+		}
+
 		setPanelOpen(!panelOpen);
 	};
 
@@ -103,7 +122,6 @@ export default function Home() {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		alignContent: 'center',
-		alignItens: 'center',
 		position: 'absolute',
 		width: '100%',
 		top: 0,
@@ -120,7 +138,6 @@ export default function Home() {
 	};
 
 	return (
-		
 		<View style={styles.container}>
 			<ImageBackground
 				source={backgroundImage}
@@ -131,18 +148,27 @@ export default function Home() {
 				<LottieView source={dinoAnimation} autoPlay loop style={styles.dino} />
 				<Animated.View style={panelStyle}>
 					<Level levelNumber={0} />
-					<TopicWithProgress2 progress={status.xp / 100} />
-					<TopicWithProgress title="Energia" progress={status.energia / 20} />
+					<TopicWithProgress2
+						progress={(characterStatus?.XP ?? 0) / 100}
+					/>
+					<TopicWithProgress
+						title="Energia"
+						progress={(characterStatus?.Energia ?? 0) / 20}
+					/>
 					<TopicWithProgress
 						title="Felicidade"
-						progress={status.felicidade / 20}
+						progress={(characterStatus?.Felicidade ?? 0) / 20}
 					/>
 					<TopicWithProgress
 						title="Alimentação"
-						progress={status.alimentacao / 20}
+						progress={(characterStatus?.Alimentação ?? 0) / 20}
 					/>
-					<TopicWithProgress title="Força" progress={status.forca / 20} />
+					<TopicWithProgress
+						title="Força"
+						progress={(characterStatus?.Força ?? 0) / 20}
+					/>
 				</Animated.View>
+
 				<TouchableOpacity onPress={togglePanel} style={buttonStyle}>
 					<AntDesign
 						name={panelOpen ? 'up' : 'down'}
